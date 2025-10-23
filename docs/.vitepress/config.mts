@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Pocketblue",
-  head: [['link', { rel: 'icon', href: '/assets/favicon.ico' }]],
+  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
   description: "Fedora Atomic images for mobile devices",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config

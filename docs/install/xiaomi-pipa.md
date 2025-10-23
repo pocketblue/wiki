@@ -22,7 +22,7 @@ next: false
 
 - Default username: `user`
 - Default password: `123456`
-- [How to upgrade system and install packages](etc/installing-packages.md)
+- [How to upgrade system and install packages](/etc/installing-packages.md)
 
 ### Manual installation
 
