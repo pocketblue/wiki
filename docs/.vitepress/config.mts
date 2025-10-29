@@ -4,7 +4,10 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Pocketblue",
   // base: '/pocketblue.github.io',
-  head: [['link', { rel: 'icon', href: '/pocketblue-vitepress/favicon.ico' }]],
+  head: [
+    ['link', { rel: 'icon', href: '/pocketblue-vitepress/favicon.ico' }],
+    ['meta', { name: 'darkreader-lock' }],
+  ],
   description: "Fedora Atomic images for mobile devices",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
