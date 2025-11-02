@@ -1,0 +1,9 @@
+[project]
+name = "pocketblue-docs"
+version = "1"
+requires-python = ">=3.14"
+dependencies = [
+    "markdown-callouts",
+    "mkdocs-material",
+    "pygments",
+]
