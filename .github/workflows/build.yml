@@ -25,7 +25,6 @@ jobs:
       - run: |
           uv sync
           uv run mkdocs build --clean
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           path: site
-          retention-days: 90
