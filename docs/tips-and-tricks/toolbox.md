@@ -1,63 +1,61 @@
-### what is toolbox
+# Toolbox
 
-- toolbox is a tool that creates container with any linux distro
-- in toolbox containers you can install any packages from any linux distro
-- if you want to use `dnf` on fedora atomic, it's strongly recommended to use toolbox
-- preinstalled on all fedora atomic images
+Toolbox is a tool, which allows the interactive use of containers with any Linux distro.
+It can be used to install and run any software in a container, without having to install it on the host.
+Toolbox is preinstalled in all Pocketblue images.
 
-### what is distrobox
+Distrobox is an alternative to Toolbox. It can be installed with `rpm-ostee install distrobox`
 
-- distrobox is a nice alternative for toolbox
-- can be installed with `rpm-ostee install distrobox`
+!!! warning "Broken on OnePlus 6/6T"
+    Currently toolbox is broken on OnePlus 6/6T due to a bug.
+    See [containers/podman#25751](https://github.com/containers/podman/issues/25751)
+    and [coreos/fedora-coreos-tracker#1908](https://github.com/coreos/fedora-coreos-tracker/issues/1908)
+    for more information.
 
-### currently broken on oneplus 6 and oneplus 6t
+## Using different distros
 
-for oneplus 6 and oneplus 6t pocketeblue currently provides 6.15 linux kernel which have a bug that makes toolbox and distrobox broken, so if you use oneplus6 please wait for us to update kernel
-
-### fedora
+### Fedora
 
 ```shell
 toolbox create --distro=fedora
 ```
 
-### rhel
+### RHEL
 
 ```shell
 toolbox create --distro=rhel --release=10.0
 ```
 
-### ubuntu
+### Ubuntu
 
 ```shell
 toolbox create --distro=ubuntu --release=24.04
 ```
 
-### debian
+### Debian
 
 ```shell
 toolbox create --image quay.io/toolbx-images/debian-toolbox
 ```
 
-### alpine
+### Alpine
 
 ```shell
 toolbox create --image quay.io/toolbx-images/alpine-toolbox
 ```
 
-### postmarket os
+### postmarketOS (unofficial)
+
+Source: https://github.com/gmanka-containers/pmos-toolbox
 
 ```shell
 toolbox create --image quay.io/gmanka/pmos-toolbox
 ```
 
-### arch arm
+### Arch Linux ARM (unofficial)
+
+Source: https://github.com/gmanka-containers/arch-arm-toolbox
 
 ```shell
 toolbox create --image quay.io/gmanka/arch-arm-toolbox
 ```
-
-### additional info
-
-- arch linux only had x86 images and didn't had arm toolbox images, so we built our own - https://github.com/gmanka-containers/arch-arm-toolbox
-- postmarketos didn't had any toolbox images at all, so we built our own - https://github.com/gmanka-containers/pmos-toolbox
-
