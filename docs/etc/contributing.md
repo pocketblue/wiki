@@ -104,7 +104,6 @@ Finally, flash the system to your device:
 
 1. reset all modifications of the system image: `sudo rpm-ostree reset`
 2. switch to your image: `sudo bootc switch ghcr.io/<username>/<image name>:<tag>`
-3. finalize the staged deployment: `sudo ostree admin finalize-staged`
-4. reboot
+3. reboot
 
 If anything goes wrong, you can boot into the previous working image from the Grub menu
