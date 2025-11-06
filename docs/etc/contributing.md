@@ -43,8 +43,10 @@ Flashable disk images are built using bootc-image-builder by the images.yml work
 
 #### device.conf
 
-- `esp_size` - ESP size
+- `esp_size` - ESP partition image size
+- `boot_size` - boot partition image size
 - `install_dtb` - boolean, whether to install device trees to ESP
+- `split_partitions` - boolean, whether to split `disk.raw` image to separate `fedora_rootfs.raw`, `fedora_boot.raw`, and `fedora_esp.raw` partition images
 
 ## Contribution guide
 
