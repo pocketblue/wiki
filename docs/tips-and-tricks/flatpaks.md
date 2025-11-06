@@ -2,58 +2,40 @@
 
 Additional flatpak packages for Pocketblue
 
-### add pocketblue flatpak repo
+## Adding the Pocketblue flatpak repo
+
+To add the repo run the following command:
 
 ```shell
 sudo flatpak remote-add pocketblue https://pocketblue.github.io/pocketblue.flatpakrepo
 ```
 
-### list available apps
+To list available packages:
 
 ```shell
 flatpak remote-ls pocketblue
 ```
 
-this command will list apps:
+Example output:
 
 ```shell
 io.github.pocketblue.handyfox
 org.mozilla.firefox.systemconfig
 ```
 
-### difference between firefox-systemconfig and handyfox
+## Available packages
 
-firefox-systemconfig:
+### firefox-systemconfig (org.mozilla.firefox.systemconfig)
 
-- applies mobile config to the `org.mozilla.firefox` flatpak package
-- does not ship the firefox binary
-- does not change the icon
+An extension for the official Firefox flatpak package.
+Ships a configuration that makes Firefox usable on mobile devices.
+Requires Firefox to be installed.
 
-handyfox:
+- Project homepage: https://gitlab.postmarketos.org/postmarketOS/mobile-config-firefox
+- Flatpak manifest: https://github.com/pocketblue/firefox-systemconfig
 
-- separate application that does not affect the `org.mozilla.firefox` package
-- bundles both firefox binary and mobile config
-- uses modified icon
+### Handyfox (io.github.pocketblue.handyfox)
 
-### install firefox-systemconfig
+A separate application with a different name and icon that ships Firefox with the mobile theme preinstalled.
 
-```shell
-flatpak install pocketblue org.mozilla.firefox.systemconfig
-```
-
-### install handyfox
-
-```shell
-flatpak install pocketblue io.github.pocketblue.handyfox
-```
-
-### what is mobile config?
-
-- a config that makes firefox usable on phones, tablets are unaffected
-- works only in portrait mode, landskape remains unchanged
-- see https://gitlab.postmarketos.org/postmarketOS/mobile-config-firefox
-
-### flatpak manifests
-
-- https://github.com/pocketblue/handyfox
-- https://github.com/pocketblue/firefox-systemconfig
+Project homepage: https://github.com/pocketblue/handyfox
