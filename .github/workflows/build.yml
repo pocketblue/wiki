@@ -29,3 +29,8 @@ jobs:
         with:
           path: site
           name: wiki
+      - name: deploy
+        env:
+          GH_TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          gh workflow run --repo=pocketblue/pocketblue.github.io deploy.yml
