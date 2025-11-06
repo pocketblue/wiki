@@ -1,7 +1,9 @@
-site_name: pocketblue
+site_name: Pocketblue
 site_url: https://pocketblue.github.io
 theme:
   name: material
   palette:
     scheme:
       slate
+markdown_extensions:
+  - admonition
