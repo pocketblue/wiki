@@ -15,8 +15,7 @@ This is a work-in-progress. During the installation process all data on your dev
 - [technical details and contribution guide](etc/contributing.md)
 - [installing packages](etc/installing-packages.md)
 - [using toolbox](etc/toolbox.md)
-- [firefox mobile config packaged to flatpak](https://github.com/pocketblue/pocketblue.github.io)
-- [dualboot linux and android](https://github.com/pocketblue/dualboot)
+- [firefox mobile config packaged to flatpak](etc/flatpaks.md)
 
 ### Related projects
 
