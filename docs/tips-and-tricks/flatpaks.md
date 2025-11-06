@@ -1,3 +1,7 @@
+# Pocketblue flatpaks
+
+Additional flatpak packages for Pocketblue
+
 ### add pocketblue flatpak repo
 
 ```shell

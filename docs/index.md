@@ -9,16 +9,16 @@ This is a work-in-progress. During the installation process all data on your dev
 
 ### Supported devices
 
-- [Xiaomi Pad 5](install/xiaomi-nabu.md)
-- [Xiaomi Pad 6](install/xiaomi-pipa.md)
-- [OnePlus 6/6T](install/oneplus-sdm845.md)
+- [Xiaomi Pad 5](devices/xiaomi-nabu.md)
+- [Xiaomi Pad 6](devices/xiaomi-pipa.md)
+- [OnePlus 6/6T](devices/oneplus-sdm845.md)
 
 ### Useful information
 
-- [Technical details and contribution guide](etc/contributing.md)
-- [Installing packages](etc/installing-packages.md)
-- [Using toolbox](etc/toolbox.md)
-- [Firefox mobile config packaged as flatpak](etc/flatpaks.md)
+- [Technical details and contribution guide](contributing.md)
+- [Installing packages](tips-and-tricks/installing-packages.md)
+- [Using toolbox](tips-and-tricks/toolbox.md)
+- [Firefox mobile config packaged as flatpak](tips-and-tricks/flatpaks.md)
 
 ### Related projects
 

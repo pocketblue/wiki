@@ -1,4 +1,6 @@
-### Install Fedora Atomic on oneplus 6/6t
+# OnePlus 6/6T
+
+## Installation
 
 - **your current os and all your files will be deleted**
 - installation process is the same for oneplus6 and oneplus6t, both devices are supported and tested
@@ -15,13 +17,13 @@
 - alternatively, a [manual installation](#manual-installation) is available
 - reboot and enjoy fedora
 
-### Usage
+## Usage
 
 - default username: `user`
 - default password: `123456`
-- [how to upgrade system and install packages](../etc/installing-packages.md)
+- [how to upgrade system and install packages](../tips-and-tricks/installing-packages.md)
 
-### Manual installation
+## Manual installation
 
 - recommended way to install pocketblue is using an installation script, but manual installation is also an option
 - erase dtbo, this required for system to boot
@@ -45,7 +47,7 @@
 - all done, now you can reboot to system
   - `fastboot reboot`
 
-### Rebasing to other desktops
+## Rebasing to other desktops
 
 - rebasing is a best way to try a new desktop
 - before rebasing you should run `rpm-ostree reset`
@@ -55,12 +57,12 @@
 - `sudo bootc switch quay.io/pocketblue/oneplus-sdm845-plasma-desktop:42`
 - `sudo bootc switch quay.io/pocketblue/oneplus-sdm845-phosh:42`
 
-### Known bugs
+## Known bugs
 
 - toolobx and distrobox don't work due to a bug in linux 6.15
 - feel free to open issue and report any other bugs you find
 
-### Incorrect battery percentage
+## Incorrect battery percentage
 
 Sometimes the battery percentage may be reported incorrectly, particularly if
 you have a replacement battery. This may be fixed by modifying the device tree blob:
@@ -97,12 +99,12 @@ sudo cp tmp.dtb /boot/efi/dtb/qcom/sdm845-oneplus-$MODEL.dtb
 reboot
 ```
 
-### Unbricking using python3-edl
+## Unbricking using python3-edl
 
 - [oneplus 6](https://github.com/pocketblue/oneplus6-unbrick)
 - oneplus 6t: TODO
 
-### Files used by the installation script, license info, source links
+## Files used by the installation script, license info, source links
 
 - `root.raw` - root partition for fedora, built by `.github/workflows/images.yml`
 - `boot.raw` - /boot partition, built by `.github/workflows/images.yml`
@@ -110,7 +112,7 @@ reboot
 - `uboot-enchilada.img` - oneplus 6 u-boot image, gpl2 license, [source](https://github.com/fedora-remix-mobility/u-boot)
 - `uboot-fajita.img` - oneplus 6t u-boot image, gpl2 license, [source](https://github.com/fedora-remix-mobility/u-boot)
 
-### Enabled copr repositories
+## Enabled copr repositories
 
 - `pocketblue/common` - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/common) / [github](https://github.com/pocketblue/common-rpms)
 - `pocketblue/sdm845` - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/sdm845) / [github](https://github.com/fedora-remix-mobility/packages)
