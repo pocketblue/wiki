@@ -46,7 +46,7 @@ toolbox create --image quay.io/toolbx-images/alpine-toolbox
 
 ### postmarketOS (unofficial)
 
-Source: https://github.com/gmanka-containers/pmos-toolbox
+Source: [github.com/gmanka-containers/pmos-toolbox](https://github.com/gmanka-containers/pmos-toolbox)
 
 ```shell
 toolbox create --image quay.io/gmanka/pmos-toolbox
@@ -54,7 +54,7 @@ toolbox create --image quay.io/gmanka/pmos-toolbox
 
 ### Arch Linux ARM (unofficial)
 
-Source: https://github.com/gmanka-containers/arch-arm-toolbox
+Source: [github.com/gmanka-containers/arch-arm-toolbox](https://github.com/gmanka-containers/arch-arm-toolbox)
 
 ```shell
 toolbox create --image quay.io/gmanka/arch-arm-toolbox

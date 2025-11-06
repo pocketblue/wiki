@@ -30,14 +30,14 @@ This is a work-in-progress. During the installation process all data on your dev
 
 ### Chats
 
-You can find our main chat in Telegram: https://t.me/fedoramobility
+You can find our main chat in Telegram: [t.me/fedoramobility](https://t.me/fedoramobility)
 
 Other related chats:
 
-- https://matrix.to/#/#mobility:fedoraproject.org - Fedora Mobility general chat
-- https://matrix.to/#/#mobility-sdm845:fedoraproject.org - Fedora Mobility chat about sdm845 devices
-- https://t.me/nabulinux - Xiaomi Pad 5 Linux chat
-- https://t.me/nabulinuxru - Xiaomi Pad 5 Linux chat (ru)
-- https://t.me/XiaomiPad5Official - Xiaomi Pad 5 ROMs chat
-- https://t.me/pipa_mainline - Xiaomi Pad 6 Linux chat
-- https://t.me/xiaomi_pipa - Xiaomi Pad 6 general chat
+- [matrix.to/#/#mobility:fedoraproject.org](https://matrix.to/#/#mobility:fedoraproject.org) - Fedora Mobility general chat
+- [matrix.to/#/#mobility-sdm845:fedoraproject.org](https://matrix.to/#/#mobility-sdm845:fedoraproject.org) - Fedora Mobility chat for sdm845 devices
+- [t.me/nabulinux](https://t.me/nabulinux) - Xiaomi Pad 5 Linux chat
+- [t.me/nabulinuxru](https://t.me/nabulinuxru) - Xiaomi Pad 5 Linux chat (ru)
+- [t.me/XiaomiPad5Official](https://t.me/XiaomiPad5Official) - Xiaomi Pad 5 ROMs chat
+- [t.me/pipa_mainline](https://t.me/pipa_mainline) - Xiaomi Pad 6 Linux chat
+- [t.me/xiaomi_pipa](https://t.me/xiaomi_pipa) - Xiaomi Pad 6 general chat

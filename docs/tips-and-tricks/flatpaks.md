@@ -31,11 +31,11 @@ An extension for the official Firefox flatpak package.
 Ships a configuration that makes Firefox usable on mobile devices.
 Requires Firefox to be installed.
 
-- Project homepage: https://gitlab.postmarketos.org/postmarketOS/mobile-config-firefox
-- Flatpak manifest: https://github.com/pocketblue/firefox-systemconfig
+- Project homepage: [gitlab.postmarketos.org/postmarketOS/mobile-config-firefox](https://gitlab.postmarketos.org/postmarketOS/mobile-config-firefox)
+- Flatpak manifest: [github.com/pocketblue/firefox-systemconfig](https://github.com/pocketblue/firefox-systemconfig)
 
 ### Handyfox (io.github.pocketblue.handyfox)
 
 A separate application with a different name and icon that ships Firefox with the mobile theme preinstalled.
 
-Project homepage: https://github.com/pocketblue/handyfox
+Project homepage: [github.com/pocketblue/handyfox](https://github.com/pocketblue/handyfox)

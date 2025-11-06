@@ -71,7 +71,7 @@ Please, avoid adding device-specific packages to base and desktop images.
 
 If your device requires a custom kernel or firmware, you should publish them to
 [Fedora COPR](https://copr.fedorainfracloud.org/) as RPM packages.
-See [sm8150](https://github.com/pocketblue/sm8150) and [pipa-fedora-support](https://github.com/timoxa0/pipa-fedora-support)
+See [sm8150-rpms](https://github.com/pocketblue/sm8150-rpms) and [sm8250-rpms](https://github.com/pocketblue/sm8250-rpms)
 for the example RPM specs.
 
 Add a `scripts/<device_name>/artifacts_<device_name>.sh` script to compress and pack
