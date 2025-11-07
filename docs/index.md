@@ -1,6 +1,3 @@
-![Logo](assets/fedora_remix_dark.svg#only-dark)
-![Logo](assets/fedora_remix_light.svg#only-light)
-
 # Fedora Pocketblue Remix
 
 Pocketblue is a project which provides Fedora Atomic images for mobile devices
