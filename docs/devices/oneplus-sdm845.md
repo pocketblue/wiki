@@ -2,67 +2,108 @@
 
 ## Installation
 
-- **your current os and all your files will be deleted**
-- installation process is the same for oneplus6 and oneplus6t, both devices are supported and tested
-- before flashing pocketblue it is recommended to flash the stock rom and check every functionality
-- you should have `fastboot` installed on your computer
-- download image from [releases](https://github.com/pocketblue/pocketblue/releases/latest)
-- unarchive it
-- boot into fastboot and connect your phone to your computer via usb
-- make sure bootloader is unlocked
-- if your computer runs linux, and your device is oneplus 6, run `flash-oneplus6-enchilada.sh` script
-- if your computer runs windows, and your device is oneplus 6, run `flash-oneplus6-enchilada.cmd` script
-- if your computer runs linux, and your device is oneplus 6t, run `flash-oneplus6t-fajita.sh` script
-- if your computer runs windows, and your device is oneplus 6t, run `flash-oneplus6t-fajita.cmd` script
-- alternatively, a [manual installation](#manual-installation) is available
-- reboot and enjoy fedora
+### Prerequisites
 
-## Usage
+Installation requires fastboot (`android-tools`)
+
+Before installing Pocketblue, it is recommended to install the latest version of
+the stock OS to ensure all firmware is present on the vendor partitions.
+
+Make sure the bootloader is unlocked,
+download the latest Pocketblue release from [releases](https://github.com/pocketblue/pocketblue/releases/latest)
+and extract the archive, then proceed to installation.
+
+!!! warning
+    Your current OS and all your files will be deleted
+
+### Automatic installation
+
+Boot into fastboot, connect your phone to your computer via usb, and run the installation script
+
+On Linux:
+
+- `./flash-oneplus6-enchilada.sh` for OnePlus 6
+- `./flash-oneplus6t-fajita.sh` for OnePlus 6T
+
+On Windows:
+
+- `./flash-oneplus6-enchilada.cmd` for OnePlus 6
+- `./flash-oneplus6t-fajita.cmd` for OnePlus 6T
+
+Your device will reboot and boot into Pocketblue automatically.
+
+**DO NOT** reboot via the power button: this can result in not all data being properly written to storage.
+
+### Manual installation
+
+#### List of provided images
+
+The archive contains the following images:
+
+- `uboot-enchilada.img`, `uboot-fajita.img` - U-Boot, a bootloader implementing the UEFI API ([source](https://github.com/fedora-remix-mobility/u-boot), GPLv2)
+- `fedora_boot.raw` - Fedora /boot partition, contains kernels, initrd images, bootloader configs, etc
+- `fedora_esp.raw` - EFI System Partition, contains EFI executables and device trees
+- `fedora_rootfs.raw` - root partition
+
+#### Recommended partition layout
+
+- `boot` - U-Boot (`images/uboot-<DEVICE>.img`)
+- `system_a` - /boot partition (`images/fedora_boot.raw`)
+- `system_b` - ESP (`images/fedora_esp.raw`)
+- `userdata` - root partition (`images/fedora_rootfs.raw`)
+
+#### Flashing
+
+Boot into fastboot, connect your phone to your computer via usb, and install the system:
+
+Erase dtbo:
+```shell
+fastboot erase dtbo_a
+fastboot erase dtbo_b
+```
+
+Flash U-Boot (replace `<DEVICE>` with your device codename):
+```shell
+fastboot flash boot images/uboot_<DEVICE>.img --slot=all
+```
+
+Flash Fedora partitions:
+```shell
+fastboot flash system_a images/fedora_boot.raw
+fastboot flash system_b images/fedora_esp.raw
+fastboot flash userdata images/fedora_rootfs.raw
+```
+
+Reboot, this may take a while. **DO NOT** reboot via the power button: this can result in not all data being properly written to storage.
+```shell
+fastboot reboot
+```
+
+## Default credentials
 
 - default username: `user`
 - default password: `123456`
-- [how to upgrade system and install packages](../tips-and-tricks/installing-packages.md)
 
-## Manual installation
+## Images, updates and packages
 
-- recommended way to install pocketblue is using an installation script, but manual installation is also an option
-- erase dtbo, this required for system to boot
-  - `fastboot erase dtbo_a`
-  - `fastboot erase dtbo_b`
-- flash uboot, the uefi implementation needed to load grub
-  - `fastboot flash boot images/uboot-enchilada.img --slot=all` - for oneplus 6
-  - `fastboot flash boot images/uboot-fajita.img --slot=all` - for oneplus 6t
-- flash `fedora_boot.raw` to `system_a` partition
-  - `fastboot flash system_a images/fedora_boot.raw`
-  - `fedora_boot.raw` - partition image with kernels, deploymets, bls
-  - `system_a` - android system partition
-- flash `fedora_esp.raw` to `system_b` partition
-  - `fastboot flash system_b images/fedora_esp.raw`
-  - `fedora_esp.raw` - esp partition image
-  - `system_b` - android system partition
-- flash `fedora_rootfs.raw` to `userdata` partition, this will wipe your android data
-  - `fastboot flash userdata images/fedora_rootfs.raw`
-  - `fedora_rootfs.raw` - fedora root partition image
-  - `userdata` - partition used by android to store your data
-- all done, now you can reboot to system
-  - `fastboot reboot`
+Learn how to upgrade the system and install packages in the following guide: [Installing packages](../tips-and-tricks/installing-packages.md)
 
-## Rebasing to other desktops
+You can rebase to a different image, for example to switch your desktop environment. To do this, run:
 
-- rebasing is a best way to try a new desktop
-- before rebasing you should run `rpm-ostree reset`
-- `sudo bootc switch quay.io/pocketblue/oneplus-sdm845-gnome-mobile:42` - recommended image for oneplus 6/6t
-- `sudo bootc switch quay.io/pocketblue/oneplus-sdm845-gnome-desktop:42`
-- `sudo bootc switch quay.io/pocketblue/oneplus-sdm845-plasma-mobile:42`
-- `sudo bootc switch quay.io/pocketblue/oneplus-sdm845-plasma-desktop:42`
-- `sudo bootc switch quay.io/pocketblue/oneplus-sdm845-phosh:42`
+```shell
+rpm-ostree reset
+sudo bootc switch <IMAGE>
+```
 
-## Known bugs
+Available images:
 
-- toolobx and distrobox don't work due to a bug in linux 6.15
-- feel free to open issue and report any other bugs you find
+- Gnome mobile - `quay.io/pocketblue/oneplus-sdm845-gnome-mobile:42`
+- Plasma mobile - `quay.io/pocketblue/oneplus-sdm845-plasma-mobile:42`
+- Phosh - `quay.io/pocketblue/oneplus-sdm845-phosh:42`
+- Gnome desktop - `quay.io/pocketblue/oneplus-sdm845-gnome-desktop:42`
+- Plasma desktop - `quay.io/pocketblue/oneplus-sdm845-plasma-desktop:42`
 
-## Incorrect battery percentage
+## Fix incorrect battery percentage
 
 Sometimes the battery percentage may be reported incorrectly, particularly if
 you have a replacement battery. This may be fixed by modifying the device tree blob:
@@ -101,16 +142,7 @@ reboot
 
 ## Unbricking using python3-edl
 
-- [oneplus 6](https://github.com/pocketblue/oneplus6-unbrick)
-- oneplus 6t: TODO
-
-## Files used by the installation script, license info, source links
-
-- `root.raw` - root partition for fedora, built by `.github/workflows/images.yml`
-- `boot.raw` - /boot partition, built by `.github/workflows/images.yml`
-- `efi.raw` - /boot/efi partition, built by `.github/workflows/images.yml`
-- `uboot-enchilada.img` - oneplus 6 u-boot image, gpl2 license, [source](https://github.com/fedora-remix-mobility/u-boot)
-- `uboot-fajita.img` - oneplus 6t u-boot image, gpl2 license, [source](https://github.com/fedora-remix-mobility/u-boot)
+[github.com/pocketblue/oneplus6-unbrick](https://github.com/pocketblue/oneplus6-unbrick)
 
 ## Enabled copr repositories
 

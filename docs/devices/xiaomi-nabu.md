@@ -2,81 +2,119 @@
 
 ## Installation
 
-- **your current os, all your files, all your custom partitions will be deleted**
-- you should have `adb` and `fastboot` installed on your computer
-- download image from [releases](https://github.com/pocketblue/pocketblue/releases/latest)
-- unarchive it
-- boot into fastboot and connect the device to your computer via usb
-- make sure bootloader is unlocked
-- if your computer runs linux, run `flash-xiaomi-nabu.sh` script
-- if your computer runs windows, run `flash-xiaomi-nabu.cmd` script
-- alternatively, a [manual installation](#manual-installation) is available
-- reboot and enjoy fedora
+### Prerequisites
 
-## Usage
+Installation requires fastboot (`android-tools`)
+
+Make sure the bootloader is unlocked,
+download the latest Pocketblue release from [releases](https://github.com/pocketblue/pocketblue/releases/latest)
+and extract the archive, then proceed to installation.
+
+!!! warning
+    Your current OS, all your files and your custom partitions will be deleted
+
+### Automatic installation
+
+Boot into fastboot, connect your device to your computer via usb, and run the installation script:
+
+- on Linux: `flash-xiaomi-nabu.sh`
+- on Windows: `flash-xiaomi-nabu.cmd`
+
+Your device will reboot and boot into Pocketblue automatically.
+
+**DO NOT** reboot via the power button: this can result in not all data being properly written to storage.
+
+### Manual installation
+
+#### List of provided images
+
+The archive contains the following images:
+
+- `uboot.img` - U-Boot, a bootloader implementing the UEFI API ([source](https://gitlab.com/sm8150-mainline/u-boot), GPLv2)
+- `vbmeta-disabled.img` - vbmeta partition image disabling verified boot, generated using avbtool
+- `fedora_boot.raw` - Fedora /boot partition, contains kernels, initrd images, bootloader configs, etc
+- `fedora_esp.raw` - EFI System Partition, contains EFI executables
+- `fedora_rootfs.raw` - root partition
+
+#### Recommended partition layout
+
+- `vbmeta` - `images/vbmeta-disabled.img`
+- `boot` - U-Boot (`images/uboot.img`)
+- `rawdump` - ESP (`images/fedora_esp.raw`)
+- `cust` - /boot partition (`images/fedora_boot.raw`)
+- `userdata` - root partition (`images/fedora_rootfs.raw`)
+
+`rawdump` (partition for dumping crash data on qualcomm devices)
+and `cust` (partition for region-specific configurations and preloads)
+partition contents aren't required for the device to function correctly and thus
+they can be used to store Fedora data.
+
+#### Flashing
+
+Boot into fastboot, connect your device to your computer via usb, and install the system:
+
+Erase dtbo:
+```shell
+fastboot erase dtbo_ab
+```
+
+Disable verified boot:
+```shell
+fastboot flash vbmeta_ab images/vbmeta-disabled.img
+```
+
+Flash U-Boot:
+```shell
+fastboot flash boot_ab images/uboot.img
+```
+
+Flash Fedora partitions:
+```shell
+fastboot flash cust images/fedora_boot.raw
+fastboot flash rawdump images/fedora_esp.raw
+fastboot flash userdata images/fedora_rootfs.raw
+```
+
+Reboot, this may take a while.
+**DO NOT** reboot via the power button: this can result in not all data being properly written to storage.
+```shell
+fastboot reboot
+```
+
+## Default credentials
 
 - default username: `user`
 - default password: `123456`
-- [how to upgrade system and install packages](../tips-and-tricks/installing-packages.md)
 
-## Manual installation
+## Images, updates and packages
 
-- recommended way to install pocketblue is using an installation script, but manual installation is also an option
-- erase dtbo, this required for system to boot
-  - `fastboot erase dtbo_ab`
-- flash `vbmeta-disabled.img`, this disables verified boot and also required for system to boot
-  - `fastboot flash vbmeta_ab images/vbmeta-disabled.img`
-- flash `uboot.img`, the uefi implementation needed to load grub
-  - `fastboot flash boot_ab images/uboot.img`
-- flash `fedora_esp.raw` to `rawdump` partition
-  - `fastboot flash rawdump images/fedora_esp.raw`
-  - `fedora_esp.raw` - esp partition image
-  - `rawdump` - partition meant to dump crash data on qualcomm devices
-- flash `fedora_boot.raw` to `cust` partition
-  - `fastboot flash cust images/fedora_boot.raw`
-  - `fedora_boot.raw` - partition image with kernels, deploymets, bls
-  - `cust` - partition that miui uses for region-specific configuration and preloads
-- flash `fedora_rootfs.raw` to `userdata` partition, this will wipe your android data
-  - `fastboot flash userdata images/fedora_rootfs.raw`
-  - `fedora_rootfs.raw` - fedora root partition image
-  - `userdata` - partition used by android to store your data
-- all done, now you can reboot to system
-  - `fastboot reboot`
+Learn how to upgrade the system and install packages in the following guide: [Installing packages](../tips-and-tricks/installing-packages.md)
 
-## Rebasing to other desktops
+You can rebase to a different image, for example to switch your desktop environment. To do this, run:
 
-- rebasing is a best way to try a new desktop
-- before rebasing you should run `rpm-ostree reset`
-- `sudo bootc switch quay.io/pocketblue/xiaomi-nabu-gnome-desktop:42` - recommended image for xiaomi pad 5
-- `sudo bootc switch quay.io/pocketblue/xiaomi-nabu-gnome-mobile:42`
-- `sudo bootc switch quay.io/pocketblue/xiaomi-nabu-plasma-desktop:42`
-- `sudo bootc switch quay.io/pocketblue/xiaomi-nabu-plasma-mobile:42`
-- `sudo bootc switch quay.io/pocketblue/xiaomi-nabu-phosh:42`
+```shell
+rpm-ostree reset
+sudo bootc switch <IMAGE>
+```
 
-## Known bugs
+Available images:
 
-- sound is cracking sometimes, it can be fixed after rebooting device, or by using headphones
-- feel free to open issue and report any other bugs you find
+- Gnome desktop - `quay.io/pocketblue/xiaomi-nabu-gnome-desktop:42`
+- Gnome mobile - `quay.io/pocketblue/xiaomi-nabu-gnome-mobile:42`
+- Plasma desktop - `quay.io/pocketblue/xiaomi-nabu-plasma-desktop:42`
+- Plasma mobile - `quay.io/pocketblue/xiaomi-nabu-plasma-mobile:42`
+- Phosh - `quay.io/pocketblue/xiaomi-nabu-phosh:42`
 
-## Uninstall fedora and get stock rom back
+## Cracking sound
 
-- download `MIUI 14.0.8.0.TKXMIXM` archive [from here](https://miuirom.org/tablets/xiaomi-pad-5)
-- unarchive it
-- [opnional] restore original partition table: `fastboot flash partition:0 images/gpt_both0.bin`
+Sometimes sound may start cracking. It can be fixed by rebooting the device, or by using headphones.
+
+## Uninstall Fedora and get stock ROM back
+
+- download and unpack the `MIUI 14.0.8.0.TKXMIXM` archive [from here](https://miuirom.org/tablets/xiaomi-pad-5)
+- [opnional] restore the original partition table: `fastboot flash partition:0 images/gpt_both0.bin`
 - run `bash flash_all.sh`
-- reboot and enjoy stock rom
-
-## Files used by the installation script, license info, source links
-
-- `root.raw` - root partition for fedora, built by `.github/workflows/images.yml`
-- `boot.raw` - /boot partition, built by `.github/workflows/images.yml`
-- `efi.raw` - /boot/efi partition, built by `.github/workflows/images.yml`
-- `uboot.img` - u-boot image, gpl2 license, [source](https://gitlab.com/sm8150-mainline/u-boot/-/jobs?kind=BUILD)
-- `twrp.img` - recovery, gpl3 license, [source](https://github.com/ArKT-7/twrp_device_xiaomi_nabu)
-- `dtbo.img` - device tree blob overlay image from lineage os, gpl2 or bsd‑2‑clause license, [source](https://github.com/ArKT-7/automated-nabu-lineage-installer)
-- `vbmeta-disabled.img` - generated by `avbtool make_vbmeta_image --flags 2 --padding_size 4096 --output vbmeta-disabled.img` command
-- `parted` - gnu parted arm64 static binary, gpl3 license, [source](https://github.com/pocketblue/parted-static)
-- `sgdisk` - sgdisk arm64 static binary, gpl2 license, [source](https://github.com/pocketblue/sgdisk-static)
+- reboot and enjoy the stock ROM
 
 ## Enabled copr repositories
 
