@@ -97,11 +97,11 @@ sudo bootc switch <IMAGE>
 
 Available images:
 
-- Gnome mobile - `quay.io/pocketblue/oneplus-sdm845-gnome-mobile:42`
-- Plasma mobile - `quay.io/pocketblue/oneplus-sdm845-plasma-mobile:42`
-- Phosh - `quay.io/pocketblue/oneplus-sdm845-phosh:42`
-- Gnome desktop - `quay.io/pocketblue/oneplus-sdm845-gnome-desktop:42`
-- Plasma desktop - `quay.io/pocketblue/oneplus-sdm845-plasma-desktop:42`
+- Gnome mobile - `quay.io/pocketblue/oneplus-sdm845-gnome-mobile:43`
+- Plasma mobile - `quay.io/pocketblue/oneplus-sdm845-plasma-mobile:43`
+- Phosh - `quay.io/pocketblue/oneplus-sdm845-phosh:43`
+- Gnome desktop - `quay.io/pocketblue/oneplus-sdm845-gnome-desktop:43`
+- Plasma desktop - `quay.io/pocketblue/oneplus-sdm845-plasma-desktop:43`
 
 ## Fix incorrect battery percentage
 
