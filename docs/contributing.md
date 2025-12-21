@@ -55,23 +55,24 @@ Cross-arch container builds via qemu are supported but will take much longer.
 Build tools are preinstalled on Pocketblue. To install them on a different system:
 
 ```shell
-sudo dnf install just buildah
+sudo dnf install just buildah podman
 ```
 
 A typical example of a local build process:
 
 ```shell
 # build the image:
-just device=oneplus-sdm845 desktop=phosh tag=43-test rechunk_suffix=-build
+just device=oneplus-sdm845 desktop=phosh tag=43-test
 
 # rechunk the image:
-just device=oneplus-sdm845 desktop=phosh tag=43-test rechunk_suffix=-build rechunk
+just device=oneplus-sdm845 desktop=phosh tag=43-test rechunk
 ```
 
-This will result in an image tagged `localhost/oneplus-sdm845-phosh:43-test`. To rebase to the newly built image:
+This will result in a rechunked image tagged `localhost/oneplus-sdm845-phosh:43-test`
+and an original image tagged `localhost/oneplus-sdm845-phosh:43-test-build`. To rebase to the new image:
 
 ```shell
-just device=oneplus-sdm845 desktop=phosh tag=43-test rechunk_suffix=-build rebase
+just device=oneplus-sdm845 desktop=phosh tag=43-test rebase
 
 # alternatively, use a full ref:
 just rebase localhost/oneplus-sdm845-phosh:43-test
@@ -86,7 +87,7 @@ Supported `just` parameters (all parameters are optional):
 |--------|-------------|---------|
 | branch | Base Fedora release branch | 43 |
 | tag | Tag of the resulting Pocketblue image | Same as `branch` |
-| rechunk_suffix | A suffix appended to the resulting image tag, does not affect the image contents or build process. Useful for images that will be rechunked afterwards |  |
+| rechunk_suffix | A suffix appended to the original image tag before rechunking | \-build |
 | device | Device name (see `devices/`) | oneplus-sdm845 |
 | desktop | Desktop environment (see `desktops/`) | phosh |
 | base | Base image | Inferred from the `desktop` option |
