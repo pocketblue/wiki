@@ -6,104 +6,145 @@ that will help you contribute to Pocketblue
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
-- [Technical details](#technical-details)
-  - [Build process](#build-process)
-  - [Repository layout](#repository-layout)
+- [Introduction](#introduction)
+- [Repository layout](#repository-layout)
     - [device.conf](#deviceconf)
-- [Contribution guide](#contribution-guide)
-  - [Adding a new device](#adding-a-new-device)
-  - [Building using Github Actions in a forked repo](#building-using-github-actions-in-a-forked-repo)
-  - [Testing your changes on a device running Pocketblue](#testing-your-changes-on-a-device-running-pocketblue)
+- [Building OCI images](#building-oci-images)
+    - [Building locally](#building-locally)
+    - [Building with Github Actions](#building-with-github-actions)
+- [Porting to a new device](#porting-to-a-new-device)
+    - [Adding support to the image](#adding-support-to-the-image)
+    - [Building disk images](#building-disk-images)
+    - [Flashing](#flashing)
 
-## Technical details
+## Introduction
 
-### Build process
+Pocketblue is an atomic system that relies on OCI, OSTree and Bootc technologies.
+System images are based on upstream atomic Fedora images (Silverblue/Kinoite) and
+are built and distributed as OCI containers.
 
-The images are built as regular OCI containers based on fedora-bootc and published to the
-quay.io container registry
+## Repository layout
 
-The build process of every final image is split into three containers built in a chain: `base -> device -> desktop`
-- `base` image contains the common software required by all final images
-- `device` images add device-specific packages like the kernel and firmware to the base image
-- `desktop` images add a desktop environment and graphical applications
+- `Justfile` - build recipes
+- `Containerfile` - container definition
+- `common/` - common scripts and files for all images
+- `devices/<device-name>/` - device-specific scripts and files
+    - `.../build-aux/` - auxiliary device-specific data and scripts
+    - `.../build-aux/device.conf` - various device configuration options (see below)
+- `desktops/<desktop-name>/` - desktop-environment-specific scripts and files
+- `bootc-image-builder.toml` - bootc-image-builder config
 
-Container images are built using Github Actions by the containers.yml workflow
+### device.conf
 
-Flashable disk images are built using bootc-image-builder by the images.yml workflow
-
-### Repository layout
-
-- `base/` - base image recipe and files
-- `devices/<device-name>/` - device images
-  - `devices/<device-name>/device.conf` - various device configuration options, see [device.conf](#deviceconf)
-- `desktops/<desktop-name>/` - desktop images
-- `scripts/` - various scripts for building and flashing disk images
-- `docs/` - documentation
-- `config.toml` - bootc-image-builder config
-
-#### device.conf
+Available options:
 
 - `esp_size` - ESP partition image size
 - `boot_size` - boot partition image size
 - `install_dtb` - boolean, whether to install device trees to ESP
 - `split_partitions` - boolean, whether to split `disk.raw` image to separate `fedora_rootfs.raw`, `fedora_boot.raw`, and `fedora_esp.raw` partition images
 
-## Contribution guide
 
-If you want to contribute changes to the repository you should:
+## Building OCI images
 
-1. fork the repository
-2. make, commit and push your changes
-3. build the container images and test the changes on your device (see below)
-4. create a pull request
+### Building locally
 
-### Adding a new device
+You can build container images locally using Just and Buildah.
+The best practice is to build images directly on your target device if it already runs Linux.
+Cross-arch container builds via qemu are supported but will take much longer.
 
-To add a new device, create a new subdirectory in `devices/` with the short name
-for your device.
+Build tools are preinstalled on Pocketblue. To install them on a different system:
+
+```shell
+sudo dnf install just buildah
+```
+
+A typical example of a local build process:
+
+```shell
+# build the image:
+just device=oneplus-sdm845 desktop=phosh tag=43-test rechunk_suffix=-build
+
+# rechunk the image:
+just device=oneplus-sdm845 desktop=phosh tag=43-test rechunk_suffix=-build rechunk
+```
+
+This will result in an image tagged `localhost/oneplus-sdm845-phosh:43-test`. To rebase to the newly built image:
+
+```shell
+just device=oneplus-sdm845 desktop=phosh tag=43-test rechunk_suffix=-build rebase
+
+# alternatively, use a full ref:
+just rebase localhost/oneplus-sdm845-phosh:43-test
+
+# if you have already rebased to this image before:
+sudo rpm-ostree upgrade
+```
+
+Supported `just` parameters (all parameters are optional):
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| branch | Base Fedora release branch | 43 |
+| tag | Tag of the resulting Pocketblue image | Same as `branch` |
+| rechunk_suffix | A suffix appended to the resulting image tag, does not affect the image contents or build process. Useful for images that will be rechunked afterwards |  |
+| device | Device name (see `devices/`) | oneplus-sdm845 |
+| desktop | Desktop environment (see `desktops/`) | phosh |
+| base | Base image | Inferred from the `desktop` option |
+| base_bootc | fedora-bootc image, used for rechunking | `quay.io/fedora/fedora-bootc:` + `branch` |
+| registry | Container registry | localhost |
+| expires_after | Tag expiration time, e.g. 1w |  |
+| arch | Architecture | arm64 |
+
+### Building with Github Actions
+
+Setup the repository:
+
+1. Fork the repository
+2. Create a classic Github personal access token: https://github.com/settings/tokens/new?scopes=write:packages
+3. Go to the settings of your fork repo and open the `Secrets and variables -> Actions` section
+4. Add a repository secret with the name `REGISTRY_TOKEN` and value of your access token
+5. Add two repository variables:
+    1. name: `REGISTRY`, value: `ghcr.io/<github username>`
+    2. name: `REGISTRY_USERNAME`, value: your github username
+
+You can now use Github Actions to build container images and disk images!
+
+## Porting to a new device
+
+### Adding support to the image
+
+To add a new device, create a new subdirectory in `devices/` with a device alias,
+following the `<vendor>-<codename>` naming scheme.
 
 The directory should contain:
-- a Containerfile with device-specific packages, e.g. the kernel and firmware
-- any additional files required by your device, e.g. `.repo` files for your copr repositories
-- a `device.conf` file containing the size of the EFI system partition
 
-Please, avoid adding device-specific packages to base and desktop images.
+- An executable script named `build` that will perform all necessary modifications to the image (e.g. install the kernel and firmware, copy over the files, etc)
+- `build-aux/device.conf` file containing the size of the EFI system partition
+- `build-aux/artifacts.sh` script to collect build artifacts of your device for further distribution
+- `files/` directory with any additional files, e.g. `.repo` files for your copr repositories
 
 If your device requires a custom kernel or firmware, you should publish them to
 [Fedora COPR](https://copr.fedorainfracloud.org/) as RPM packages.
 See [sm8150-rpms](https://github.com/pocketblue/sm8150-rpms) and [sm8250-rpms](https://github.com/pocketblue/sm8250-rpms)
 for the example RPM specs.
 
-Add a `scripts/<device_name>/artifacts_<device_name>.sh` script to compress and pack
-your device's disk images into a 7z archive.
+Finally, add your device to the lists in the `.github/workflows/containers.yml` and `.github/workflows/images.yml` workflows.
 
-After adding a new container definition for your device, use Github Actions to build the images:
-1. run the `containers` workflow to build the container images
-2. run the `images` workflow to build the flashable disk images
+### Building disk images
+
+Use Github Actions to build the images:
+
+1. Run the `containers` workflow to build the OCI images
+2. Run the `images` workflow to build the flashable disk images
+
+### Flashing
 
 Finally, flash the system to your device:
-- find the suitable partitions to flash the root partition, the /boot partition and the ESP
-- flash U-Boot (or any alternative that can boot EFI executables on your device) to the android boot partition
-- flash boot.raw, esp.raw and root.raw using fastboot or U-Boot's mass storage mode
-- reboot and test Pocketblue!
+
+- Find the suitable partitions to flash the root partition, the /boot partition and the ESP
+- Flash U-Boot (or any alternative that can boot EFI executables on your device) to the android boot partition
+- Flash boot.raw, esp.raw and root.raw using fastboot or U-Boot's mass storage mode
+- Reboot and test Pocketblue!
 
 !!! caution
     Before flashing, make sure the chosen partitions can be safely flashed without bricking the device
-
-### Building using Github Actions in a forked repo
-
-1. create a classic github personal access token: https://github.com/settings/tokens/new?scopes=write:packages
-2. go to the settings of your fork repo and open the `Secrets and variables -> Actions` section
-3. add a repository secret with the name `REGISTRY_TOKEN` and value of your access token
-4. add two repository variables:
-  - name: `REGISTRY`, value: `ghcr.io/<github username>`
-  - name: `REGISTRY_USERNAME`, value: your github username
-5. you can now use Github Actions to build container images and disk images
-
-### Testing your changes on a device running Pocketblue
-
-1. reset all modifications of the system image: `sudo rpm-ostree reset`
-2. switch to your image: `sudo bootc switch ghcr.io/<username>/<image name>:<tag>`
-3. reboot
-
-If anything goes wrong, you can boot into the previous working image from the Grub menu
