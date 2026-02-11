@@ -16,8 +16,10 @@ echo '{
   "Config": {
     "RootFS": "/usr/share/fex-emu/RootFS/default.erofs"
   }
-}' | tee ~/.config/.fex-emu/Config.json
+}' | tee ~/.fex-emu/Config.json
 ```
+
+`~/.config` support is not done yet in FEX-2601, but already merged and will be in the next release - https://github.com/FEX-Emu/FEX/issues/4369
 
 Disable qemu and enable fex:
 
