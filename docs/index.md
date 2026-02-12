@@ -38,6 +38,7 @@ This is a work-in-progress. During the installation process all data on your dev
 Main chats:
 
 - [t.me/fedoramobility](https://t.me/fedoramobility) - Pocketblue dev chat (Telegram)
+- [t.me/pocketblue_offtopic](https://t.me/pocketblue_offtopic) - Pocketblue offtopic multilingual chat (Telegram)
 - [matrix.to/#/#mobility:fedoraproject.org](https://matrix.to/#/#mobility:fedoraproject.org) - Fedora Mobility general chat (Matrix)
 
 Other related chats:
