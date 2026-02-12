@@ -108,7 +108,7 @@ Available images:
 Sometimes the battery percentage may be reported incorrectly, particularly if
 you have a replacement battery. This may be fixed by modifying the device tree blob:
 
-```bash
+```shell
 # uncomment to select the device model:
 # export MODEL=enchilada # OnePlus 6
 # export MODEL=fajita    # OnePlus 6T

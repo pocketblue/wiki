@@ -15,19 +15,19 @@ with an encrypted home directory.
 
 Enable systemd-homed authentication:
 
-```bash
+```shell
 sudo authselect enable-feature with-systemd-homed
 ```
 
 Create a new user with a luks-encrypted home directory:
 
-```bash
+```shell
 homectl create --storage=luks --luks-extra-mount-options=defcontext=system_u:object_r:user_home_dir_t:s0 --fs-type=btrfs <username>
 ```
 
 For some reason, you have to set the password *again*:
 
-```bash
+```shell
 homectl passwd <username>
 ```
 
@@ -48,7 +48,7 @@ new user with GDM, then rebase back to the Phosh image. Phrog will then pick the
 
 Add yourself to the wheel group to be able to use sudo and modify system settings:
 
-```bash
+```shell
 homectl update --member-of=wheel
 ```
 
@@ -60,7 +60,7 @@ systemd-homed doesn't modify `/etc/subuid` and `/etc/subgid`.
 To make podman work, edit these files manually and replace the old username with the new one
 (for example: `newuser:524288:65536`), then run:
 
-```bash
+```shell
 podman system migrate
 sudo podman system migrate
 ```
@@ -72,7 +72,7 @@ Run `df -h ~` to check your home size, run `df -h /var` to check the overall dis
 
 Use the following command to resize the home directory (replace 100G with the desired size):
 
-```bash
+```shell
 homectl update --disk-size=100G
 ```
 
