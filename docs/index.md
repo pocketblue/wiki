@@ -23,6 +23,7 @@ This is a work-in-progress. During the installation process all data on your dev
 - [Firefox mobile config packaged as flatpak](tips-and-tricks/flatpaks.md)
 - [Using fex-emu to run x86 apps on arm devices](tips-and-tricks/fex-emu.md)
 - [Encryption](tips-and-tricks/encryption.md)
+- [Backtick symbol on Xiaomi keyboards](tips-and-tricks/backtick-symbol.md)
 
 ### Related projects
 
