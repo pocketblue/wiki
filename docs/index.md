@@ -14,6 +14,7 @@ This is a work-in-progress. During the installation process all data on your dev
 - [Xiaomi Pad 5](devices/xiaomi-nabu.md)
 - [Xiaomi Pad 6](devices/xiaomi-pipa.md)
 - [OnePlus 6/6T](devices/oneplus-sdm845.md)
+- [Orange Pi 3 LTS](devices/xunlong-orangepi3-lts.md)
 
 ### Useful information
 
