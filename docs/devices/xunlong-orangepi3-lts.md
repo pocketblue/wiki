@@ -6,7 +6,7 @@
 
 Installation requires:
 
-- a Linux host with `7z`, `coreutils` and `util-linux`
+- a Linux or Windows host
 - a microSD card or eMMC target disk
 - a card reader or USB adapter
 
@@ -33,14 +33,16 @@ The archive contains the following image:
 
 Connect the target disk (microSD or eMMC) to your computer and install the system:
 
-Find the target device:
-```shell
-lsblk -p
-```
-
 Extract the image archive:
 ```shell
 7z x pocketblue-xunlong-orangepi3-lts-<DESKTOP>-<TAG>.7z
+```
+
+##### Method 1: `dd` (Linux)
+
+Find the target device:
+```shell
+lsblk -p
 ```
 
 Write `disk.raw`:
@@ -48,6 +50,23 @@ Write `disk.raw`:
 sudo dd if=disk.raw of=/dev/<TARGET_DISK> bs=8M status=progress conv=fsync
 sync
 ```
+
+##### Method 2: balenaEtcher (Linux/Windows)
+
+- Download: [etcher.balena.io](https://etcher.balena.io/)
+- Start balenaEtcher.
+- Select `disk.raw`.
+- Select your target microSD/eMMC disk.
+- Click `Flash`.
+
+##### Method 3: Rufus (Windows)
+
+- Download: [rufus.ie](https://rufus.ie/)
+- Start Rufus.
+- Select your microSD/eMMC disk in `Device`.
+- Click `SELECT` and choose `disk.raw`.
+- Keep default options and click `START`.
+- If Rufus asks for image mode, choose `DD Image mode`.
 
 Insert the flashed media into the Orange Pi 3 LTS and boot the device.
 
