@@ -16,11 +16,6 @@ and extract the archive, then proceed to installation.
 !!! warning
     All data on the target disk will be deleted
 
-### Automatic installation
-
-Automatic installer scripts are not provided for Orange Pi 3 LTS.
-Use the manual installation steps below.
-
 ### Manual installation
 
 #### List of provided images
