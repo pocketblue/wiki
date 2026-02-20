@@ -62,16 +62,16 @@ A typical example of a local build process:
 
 ```shell
 # build the image:
-just device=oneplus-sdm845 desktop=phosh tag=43-test rechunk_suffix=-build
+just device=oneplus-sdm845 desktop=phosh tag=43-test
 
 # rechunk the image:
-just device=oneplus-sdm845 desktop=phosh tag=43-test rechunk_suffix=-build rechunk
+just device=oneplus-sdm845 desktop=phosh tag=43-test rechunk
 ```
 
 This will result in an image tagged `localhost/oneplus-sdm845-phosh:43-test`. To rebase to the newly built image:
 
 ```shell
-just device=oneplus-sdm845 desktop=phosh tag=43-test rechunk_suffix=-build rebase
+just device=oneplus-sdm845 desktop=phosh tag=43-test rebase
 
 # alternatively, use a full ref:
 just rebase localhost/oneplus-sdm845-phosh:43-test
