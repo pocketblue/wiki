@@ -16,6 +16,7 @@ This is a work-in-progress. During the installation process all data on your dev
 - [Qualcomm SDM845](devices/qualcomm-sdm845.md)
     - [OnePlus 6/6T](devices/oneplus-sdm845.md)
     - [Xiaomi Poco F1](devices/xiaomi-beryllium.md)
+- [Orange Pi 3 LTS](devices/xunlong-orangepi3-lts.md)
 
 ### Useful information
 
