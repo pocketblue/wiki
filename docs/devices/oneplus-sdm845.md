@@ -1,107 +1,21 @@
 # OnePlus 6/6T
 
+!!! note
+    This page is supplementary to the [qualcomm-sdm845](qualcomm-sdm845.md) page,
+    read it before proceeding.
+
 ## Installation
 
-### Prerequisites
+See [qualcomm-sdm845#installation](qualcomm-sdm845.md#installation)
 
-Installation requires fastboot (`android-tools`)
+### Recommended partition layout
 
-Before installing Pocketblue, it is recommended to install the latest version of
-the stock OS to ensure all firmware is present on the vendor partitions.
+Recommended partition layout for manual installation:
 
-Make sure the bootloader is unlocked,
-download the latest Pocketblue release from [releases](https://github.com/pocketblue/pocketblue/releases/latest)
-and extract the archive, then proceed to installation.
-
-!!! warning
-    Your current OS and all your files will be deleted
-
-### Automatic installation
-
-Boot into fastboot, connect your phone to your computer via usb, and run the installation script
-
-On Linux:
-
-- `./flash-oneplus6-enchilada.sh` for OnePlus 6
-- `./flash-oneplus6t-fajita.sh` for OnePlus 6T
-
-On Windows:
-
-- `./flash-oneplus6-enchilada.cmd` for OnePlus 6
-- `./flash-oneplus6t-fajita.cmd` for OnePlus 6T
-
-Your device will reboot and boot into Pocketblue automatically.
-
-**DO NOT** reboot via the power button: this can result in not all data being properly written to storage.
-
-### Manual installation
-
-#### List of provided images
-
-The archive contains the following images:
-
-- `uboot-enchilada.img`, `uboot-fajita.img` - U-Boot, a bootloader implementing the UEFI API ([source](https://github.com/fedora-remix-mobility/u-boot), GPLv2)
-- `fedora_boot.raw` - Fedora /boot partition, contains kernels, initrd images, bootloader configs, etc
-- `fedora_esp.raw` - EFI System Partition, contains EFI executables and device trees
-- `fedora_rootfs.raw` - root partition
-
-#### Recommended partition layout
-
-- `boot` - U-Boot (`images/uboot-<DEVICE>.img`)
+- `boot` - U-Boot (`images/u-boot-<DEVICE>.img`)
 - `system_a` - /boot partition (`images/fedora_boot.raw`)
 - `system_b` - ESP (`images/fedora_esp.raw`)
 - `userdata` - root partition (`images/fedora_rootfs.raw`)
-
-#### Flashing
-
-Boot into fastboot, connect your phone to your computer via usb, and install the system:
-
-Erase dtbo:
-```shell
-fastboot erase dtbo_a
-fastboot erase dtbo_b
-```
-
-Flash U-Boot (replace `<DEVICE>` with your device codename):
-```shell
-fastboot flash boot images/uboot_<DEVICE>.img --slot=all
-```
-
-Flash Fedora partitions:
-```shell
-fastboot flash system_a images/fedora_boot.raw
-fastboot flash system_b images/fedora_esp.raw
-fastboot flash userdata images/fedora_rootfs.raw
-```
-
-Reboot, this may take a while. **DO NOT** reboot via the power button: this can result in not all data being properly written to storage.
-```shell
-fastboot reboot
-```
-
-## Default credentials
-
-- default username: `user`
-- default password: `123456`
-
-## Images, updates and packages
-
-Learn how to upgrade the system and install packages in the following guide: [Installing packages](../tips-and-tricks/installing-packages.md)
-
-You can rebase to a different image, for example to switch your desktop environment. To do this, run:
-
-```shell
-rpm-ostree reset
-sudo bootc switch <IMAGE>
-```
-
-Available images:
-
-- Gnome mobile - `quay.io/pocketblue/oneplus-sdm845-gnome-mobile:43`
-- Plasma mobile - `quay.io/pocketblue/oneplus-sdm845-plasma-mobile:43`
-- Phosh - `quay.io/pocketblue/oneplus-sdm845-phosh:43`
-- Gnome desktop - `quay.io/pocketblue/oneplus-sdm845-gnome-desktop:43`
-- Plasma desktop - `quay.io/pocketblue/oneplus-sdm845-plasma-desktop:43`
 
 ## Fix incorrect battery percentage
 
@@ -143,10 +57,3 @@ reboot
 ## Unbricking using python3-edl
 
 [github.com/pocketblue/oneplus6-unbrick](https://github.com/pocketblue/oneplus6-unbrick)
-
-## Enabled copr repositories
-
-- `pocketblue/common` - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/common) / [github](https://github.com/pocketblue/common-rpms)
-- `pocketblue/sdm845` - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/sdm845) / [github](https://github.com/fedora-remix-mobility/packages)
-- `@mobility/gnome-mobile` - [copr](https://copr.fedorainfracloud.org/coprs/g/mobility/gnome-mobile)
-- [kernel source code](https://github.com/fedora-remix-mobility/sdm845-kernel)
