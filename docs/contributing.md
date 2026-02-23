@@ -80,7 +80,7 @@ A typical example of a local build process:
 
 ```shell
 # build the image:
-just device=oneplus-sdm845 desktop=phosh tag=43-test
+just device=oneplus-sdm845 desktop=phosh tag=43-test build
 
 # rechunk the image:
 just device=oneplus-sdm845 desktop=phosh tag=43-test rechunk
