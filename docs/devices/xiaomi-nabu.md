@@ -13,30 +13,63 @@ and extract the archive, then proceed to installation.
 !!! warning
     Your current OS, all your files and your custom partitions will be deleted
 
+### Variants
+
+Some nabu variants can't boot the main Pocketblue images.
+Usually this happens when the device has a Samsung UFS.
+
+Try the main image first, (`pocketblue-xiaomi-nabu-*-43`).
+If it doesn't boot or you experience UFS-related issues, try
+one of the `pocketblue-xiaomi-nabu-*-43-samsung` images,
+which ship a patched kernel.
+
 ### Automatic installation
+
+!!! danger
+
+    If you are flashing a Samsung UFS Pocketblue image, the installation script will
+    **repartition the device**. Read the installation script before running it
+    and make sure you are fine with the partition changes.
+
+    If the installation script crashes while in TWRP recovery, do not reboot the device.
+    Run `adb shell` command and repair the partition table if needed.
 
 Boot into fastboot, connect your device to your computer via usb, and run the installation script:
 
 - on Linux: `flash-xiaomi-nabu.sh`
 - on Windows: `flash-xiaomi-nabu.cmd`
 
-Your device will reboot and boot into Pocketblue automatically.
+After installation is finished, your device will reboot and boot into Pocketblue automatically.
 
+It will take the device several minutes to reboot into the system.
 **DO NOT** reboot via the power button: this can result in not all data being properly written to storage.
 
 ### Manual installation
 
-#### List of provided images
+#### List of provided images and files
 
-The archive contains the following images:
+All archives contain the following images:
 
-- `uboot.img` - U-Boot, a bootloader implementing the UEFI API ([source](https://gitlab.com/sm8150-mainline/u-boot), GPLv2)
 - `vbmeta-disabled.img` - vbmeta partition image disabling verified boot, generated using avbtool
 - `fedora_boot.raw` - Fedora /boot partition, contains kernels, initrd images, bootloader configs, etc
 - `fedora_esp.raw` - EFI System Partition, contains EFI executables
 - `fedora_rootfs.raw` - root partition
 
+The main images also ship:
+
+- `uboot.img` - U-Boot, a bootloader implementing the UEFI API ([source](https://gitlab.com/sm8150-mainline/u-boot), GPLv2)
+
+Samsung UFS images also ship:
+
+- `aloha.img` - Aloha, UEFI implementation ([source](https://github.com/Project-Aloha/mu_aloha_platforms), BSD-2-Clause)
+- `twrp.img` - TWRP recovery image by ArKT-7 ([source](https://github.com/ArKT-7/twrp_device_xiaomi_nabu))
+- `dtbo.img` - Lineage OS DTBO image ([source](https://github.com/ArKT-7/automated-nabu-lineage-installer), GPLv3)
+- `sgdisk` - static sgdisk binary ([build scripts](https://github.com/pocketblue/sgdisk-static), sgdisk license - GPLv2)
+- `parted` - static parted binary ([build scripts](https://github.com/pocketblue/parted-static), parted license - GPLv3)
+
 #### Recommended partition layout
+
+The main images can be flashed into existing partitions:
 
 - `vbmeta` - `images/vbmeta-disabled.img`
 - `boot` - U-Boot (`images/uboot.img`)
@@ -44,10 +77,16 @@ The archive contains the following images:
 - `cust` - /boot partition (`images/fedora_boot.raw`)
 - `userdata` - root partition (`images/fedora_rootfs.raw`)
 
-`rawdump` (partition for dumping crash data on qualcomm devices)
-and `cust` (partition for region-specific configurations and preloads)
-partition contents aren't required for the device to function correctly and thus
-they can be used to store Fedora data.
+Samsung UFS variant requires creating at least one new partition at least 300 MiB in size
+for the ESP (`fedora_esp.raw`). `/boot` and rootfs images can still be flashed into vendor partitions.
+A recovery (e.g. TWRP) can be used to repartition the device.
+
+!!! info "`rawdump` and `cust` partitions"
+
+    `rawdump` (partition for dumping crash data on qualcomm devices)
+    and `cust` (partition for region-specific configurations and preloads)
+    partition contents aren't required for the device to function correctly and thus
+    they can be used to store Fedora data.
 
 #### Flashing
 
@@ -63,16 +102,20 @@ Disable verified boot:
 fastboot flash vbmeta_ab images/vbmeta-disabled.img
 ```
 
-Flash U-Boot:
+Flash UEFI:
 ```shell
 fastboot flash boot_ab images/uboot.img
+
+# or
+
+fastboot flash boot_ab images/aloha.img
 ```
 
 Flash Fedora partitions:
 ```shell
-fastboot flash cust images/fedora_boot.raw
-fastboot flash rawdump images/fedora_esp.raw
-fastboot flash userdata images/fedora_rootfs.raw
+fastboot flash </boot partition> images/fedora_boot.raw
+fastboot flash <ESP partition>   images/fedora_esp.raw
+fastboot flash <root partition>  images/fedora_rootfs.raw
 ```
 
 Reboot, this may take a while.
@@ -105,9 +148,15 @@ Available images:
 - Plasma mobile - `quay.io/pocketblue/xiaomi-nabu-plasma-mobile:43`
 - Phosh - `quay.io/pocketblue/xiaomi-nabu-phosh:43`
 
-## Cracking sound
+## Known issues
+
+### Cracking sound
 
 Sometimes sound may start cracking. It can be fixed by rebooting the device, or by using headphones.
+
+### Pen charging on Samsung UFS Pocketblue images
+
+Samsung UFS images currently don't ship a driver for pen charging.
 
 ## Uninstall Fedora and get stock ROM back
 
@@ -118,7 +167,8 @@ Sometimes sound may start cracking. It can be fixed by rebooting the device, or 
 
 ## Enabled copr repositories
 
-- `pocketblue/common` - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/common) / [github](https://github.com/pocketblue/common-rpms)
-- `pocketblue/sm8150` - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/sm8150) / [github](https://github.com/pocketblue/sm8150-rpms)
+- `pocketblue/common` - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/common) / [github](https://github.com/pocketblue/packages)
+- `pocketblue/sm8150` - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/sm8150) / [github](https://github.com/pocketblue/packages)
+- `pocketblue/sm8150-samsung-ufs` (Samsung UFS images only) - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/sm8150-samsung-ufs) / [github](https://github.com/pocketblue/packages)
 - `@mobility/gnome-mobile` - [copr](https://copr.fedorainfracloud.org/coprs/g/mobility/gnome-mobile)
 - [kernel source code](https://gitlab.com/sm8150-mainline/linux)
