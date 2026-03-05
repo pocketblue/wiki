@@ -7,3 +7,4 @@ theme:
       slate
 markdown_extensions:
   - admonition
+  - pymdownx.details

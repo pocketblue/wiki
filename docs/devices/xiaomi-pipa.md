@@ -117,7 +117,7 @@ Sometimes sound may start cracking. It can be fixed by rebooting the device, or 
 
 ## Enabled copr repositories
 
-- `pocketblue/common` - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/common) / [github](https://github.com/pocketblue/common-rpms)
-- `pocketblue/sm8250` - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/sm8250) / [github](https://github.com/pocketblue/sm8250-rpms)
+- `pocketblue/common` - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/common) / [github](https://github.com/pocketblue/packages)
+- `pocketblue/sm8250` - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/sm8250) / [github](https://github.com/pocketblue/packages)
 - `@mobility/gnome-mobile` - [copr](https://copr.fedorainfracloud.org/coprs/g/mobility/gnome-mobile)
 - [kernel source code](https://github.com/pipa-mainline/linux)
