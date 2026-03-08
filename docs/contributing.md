@@ -86,19 +86,19 @@ A typical example of a local build process:
 
 ```shell
 # build the image:
-just device=oneplus-sdm845 desktop=phosh tag=43-test build
+just device=qualcomm-sdm845 desktop=phosh tag=43-test build
 
 # rechunk the image:
-just device=oneplus-sdm845 desktop=phosh tag=43-test rechunk
+just device=qualcomm-sdm845 desktop=phosh tag=43-test rechunk
 ```
 
-This will result in an image tagged `localhost/oneplus-sdm845-phosh:43-test`. To rebase to the newly built image:
+This will result in an image tagged `localhost/qualcomm-sdm845-phosh:43-test`. To rebase to the newly built image:
 
 ```shell
-just device=oneplus-sdm845 desktop=phosh tag=43-test rebase
+just device=qualcomm-sdm845 desktop=phosh tag=43-test rebase
 
 # alternatively, use a full ref:
-just rebase localhost/oneplus-sdm845-phosh:43-test
+just rebase localhost/qualcomm-sdm845-phosh:43-test
 
 # if you have already rebased to this image before:
 sudo rpm-ostree upgrade
@@ -111,7 +111,7 @@ Supported `just` parameters (all parameters are optional):
 | branch | Base Fedora release branch | 43 |
 | tag | Tag of the resulting Pocketblue image | Same as `branch` |
 | rechunk_suffix | A suffix appended to the resulting image tag, does not affect the image contents or build process. Useful for images that will be rechunked afterwards |  |
-| device | Device name (see `devices/`) | oneplus-sdm845 |
+| device | Device name (see `devices/`) | qualcomm-sdm845 |
 | desktop | Desktop environment (see `desktops/`) | phosh |
 | base | Base image | Inferred from the `desktop` option |
 | base_bootc | fedora-bootc image, used for rechunking | `quay.io/fedora/fedora-bootc:` + `branch` |
