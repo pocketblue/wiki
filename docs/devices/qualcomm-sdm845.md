@@ -120,11 +120,11 @@ sudo rpm-ostree rebase ostree-unverified-registry:<IMAGE>
 
 Available images:
 
-- Phosh - `quay.io/pocketblue/qualcomm-sdm845-phosh:43`
-- Gnome mobile - `quay.io/pocketblue/qualcomm-sdm845-gnome-mobile:43`
-- Plasma mobile - `quay.io/pocketblue/qualcomm-sdm845-plasma-mobile:43`
-- Gnome desktop - `quay.io/pocketblue/qualcomm-sdm845-gnome-desktop:43`
-- Plasma desktop - `quay.io/pocketblue/qualcomm-sdm845-plasma-desktop:43`
+- Phosh - `quay.io/pocketblue/qualcomm-sdm845-phosh:44`
+- Gnome mobile - `quay.io/pocketblue/qualcomm-sdm845-gnome-mobile:44`
+- Plasma mobile - `quay.io/pocketblue/qualcomm-sdm845-plasma-mobile:44`
+- Gnome desktop - `quay.io/pocketblue/qualcomm-sdm845-gnome-desktop:44`
+- Plasma desktop - `quay.io/pocketblue/qualcomm-sdm845-plasma-desktop:44`
 
 ## Enabled copr repositories
 

@@ -18,9 +18,9 @@ and extract the archive, then proceed to installation.
 Some nabu variants can't boot the main Pocketblue images.
 Usually this happens when the device has a Samsung UFS.
 
-Try the main image first, (`pocketblue-xiaomi-nabu-*-43`).
+Try the main image first, (`pocketblue-xiaomi-nabu-*-44`).
 If it doesn't boot or you experience UFS-related issues, try
-one of the `pocketblue-xiaomi-nabu-*-43-samsung` images,
+one of the `pocketblue-xiaomi-nabu-*-44-samsung` images,
 which ship a patched kernel.
 
 ### Automatic installation
@@ -142,11 +142,11 @@ sudo bootc switch <IMAGE>
 
 Available images:
 
-- Gnome desktop - `quay.io/pocketblue/xiaomi-nabu-gnome-desktop:43`
-- Gnome mobile - `quay.io/pocketblue/xiaomi-nabu-gnome-mobile:43`
-- Plasma desktop - `quay.io/pocketblue/xiaomi-nabu-plasma-desktop:43`
-- Plasma mobile - `quay.io/pocketblue/xiaomi-nabu-plasma-mobile:43`
-- Phosh - `quay.io/pocketblue/xiaomi-nabu-phosh:43`
+- Gnome desktop - `quay.io/pocketblue/xiaomi-nabu-gnome-desktop:44`
+- Gnome mobile - `quay.io/pocketblue/xiaomi-nabu-gnome-mobile:44`
+- Plasma desktop - `quay.io/pocketblue/xiaomi-nabu-plasma-desktop:44`
+- Plasma mobile - `quay.io/pocketblue/xiaomi-nabu-plasma-mobile:44`
+- Phosh - `quay.io/pocketblue/xiaomi-nabu-phosh:44`
 
 ## Known issues
 

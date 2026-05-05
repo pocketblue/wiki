@@ -86,12 +86,12 @@ sudo bootc switch <IMAGE>
 
 Available images:
 
-- TTY - `quay.io/pocketblue/xunlong-orangepi3-lts-tty:43`
-- Gnome desktop - `quay.io/pocketblue/xunlong-orangepi3-lts-gnome-desktop:43`
-- Gnome mobile - `quay.io/pocketblue/xunlong-orangepi3-lts-gnome-mobile:43`
-- Plasma desktop - `quay.io/pocketblue/xunlong-orangepi3-lts-plasma-desktop:43`
-- Plasma mobile - `quay.io/pocketblue/xunlong-orangepi3-lts-plasma-mobile:43`
-- Phosh - `quay.io/pocketblue/xunlong-orangepi3-lts-phosh:43`
+- TTY - `quay.io/pocketblue/xunlong-orangepi3-lts-tty:44`
+- Gnome desktop - `quay.io/pocketblue/xunlong-orangepi3-lts-gnome-desktop:44`
+- Gnome mobile - `quay.io/pocketblue/xunlong-orangepi3-lts-gnome-mobile:44`
+- Plasma desktop - `quay.io/pocketblue/xunlong-orangepi3-lts-plasma-desktop:44`
+- Plasma mobile - `quay.io/pocketblue/xunlong-orangepi3-lts-plasma-mobile:44`
+- Phosh - `quay.io/pocketblue/xunlong-orangepi3-lts-phosh:44`
 
 ## Notes
 
