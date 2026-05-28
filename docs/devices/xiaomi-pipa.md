@@ -99,11 +99,11 @@ sudo bootc switch <IMAGE>
 
 Available images:
 
-- Gnome desktop - `quay.io/pocketblue/xiaomi-pipa-gnome-desktop:43`
-- Gnome mobile - `quay.io/pocketblue/xiaomi-pipa-gnome-mobile:43`
-- Plasma desktop - `quay.io/pocketblue/xiaomi-pipa-plasma-desktop:43`
-- Plasma mobile - `quay.io/pocketblue/xiaomi-pipa-plasma-mobile:43`
-- Phosh - `quay.io/pocketblue/xiaomi-pipa-phosh:43`
+- Gnome desktop - `quay.io/pocketblue/xiaomi-pipa-gnome-desktop:44`
+- Gnome mobile - `quay.io/pocketblue/xiaomi-pipa-gnome-mobile:44`
+- Plasma desktop - `quay.io/pocketblue/xiaomi-pipa-plasma-desktop:44`
+- Plasma mobile - `quay.io/pocketblue/xiaomi-pipa-plasma-mobile:44`
+- Phosh - `quay.io/pocketblue/xiaomi-pipa-phosh:44`
 
 ## Cracking sound
 

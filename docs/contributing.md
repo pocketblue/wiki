@@ -86,19 +86,19 @@ A typical example of a local build process:
 
 ```shell
 # build the image:
-just device=qualcomm-sdm845 desktop=phosh tag=43-test build
+just device=qualcomm-sdm845 desktop=phosh tag=44-test build
 
 # rechunk the image:
-just device=qualcomm-sdm845 desktop=phosh tag=43-test rechunk
+just device=qualcomm-sdm845 desktop=phosh tag=44-test rechunk
 ```
 
-This will result in an image tagged `localhost/qualcomm-sdm845-phosh:43-test`. To rebase to the newly built image:
+This will result in an image tagged `localhost/qualcomm-sdm845-phosh:44-test`. To rebase to the newly built image:
 
 ```shell
-just device=qualcomm-sdm845 desktop=phosh tag=43-test rebase
+just device=qualcomm-sdm845 desktop=phosh tag=44-test rebase
 
 # alternatively, use a full ref:
-just rebase localhost/qualcomm-sdm845-phosh:43-test
+just rebase localhost/qualcomm-sdm845-phosh:44-test
 
 # if you have already rebased to this image before:
 sudo rpm-ostree upgrade
@@ -108,7 +108,7 @@ Supported `just` parameters (all parameters are optional):
 
 | Option | Description | Default |
 |--------|-------------|---------|
-| branch | Base Fedora release branch | 43 |
+| branch | Base Fedora release branch | 44 |
 | tag | Tag of the resulting Pocketblue image | Same as `branch` |
 | rechunk_suffix | A suffix appended to the resulting image tag, does not affect the image contents or build process. Useful for images that will be rechunked afterwards |  |
 | device | Device name (see `devices/`) | qualcomm-sdm845 |
