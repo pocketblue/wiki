@@ -16,28 +16,19 @@ and extract the archive, then proceed to installation.
 ### Variants
 
 Some nabu variants can't boot the main Pocketblue images.
-Usually this happens when the device has a Samsung UFS.
+Usually this happens due to UFS-related problems.
 
 Try the main image first, (`pocketblue-xiaomi-nabu-*-44`).
 If it doesn't boot or you experience UFS-related issues, try
-one of the `pocketblue-xiaomi-nabu-*-44-samsung` images,
-which ship a patched kernel.
+one of the `pocketblue-xiaomi-nabu-*-44-rodriguezst` images,
+which ship an outdated patched kernel.
 
 ### Automatic installation
 
-!!! danger
-
-    If you are flashing a Samsung UFS Pocketblue image, the installation script will
-    **repartition the device**. Read the installation script before running it
-    and make sure you are fine with the partition changes.
-
-    If the installation script crashes while in TWRP recovery, do not reboot the device.
-    Run `adb shell` command and repair the partition table if needed.
-
 Boot into fastboot, connect your device to your computer via usb, and run the installation script:
 
-- on Linux: `flash-xiaomi-nabu.sh`
-- on Windows: `flash-xiaomi-nabu.cmd`
+- on Linux: `flash.sh`
+- on Windows: `flash.cmd`
 
 After installation is finished, your device will reboot and boot into Pocketblue automatically.
 
@@ -59,27 +50,19 @@ The main images also ship:
 
 - `uboot.img` - U-Boot, a bootloader implementing the UEFI API ([source](https://gitlab.com/sm8150-mainline/u-boot), GPLv2)
 
-Samsung UFS images also ship:
+Rodriguezst images also ship:
 
 - `aloha.img` - Aloha, UEFI implementation ([source](https://github.com/Project-Aloha/mu_aloha_platforms), BSD-2-Clause)
-- `twrp.img` - TWRP recovery image by ArKT-7 ([source](https://github.com/ArKT-7/twrp_device_xiaomi_nabu))
-- `dtbo.img` - Lineage OS DTBO image ([source](https://github.com/ArKT-7/automated-nabu-lineage-installer), GPLv3)
-- `sgdisk` - static sgdisk binary ([build scripts](https://github.com/pocketblue/sgdisk-static), sgdisk license - GPLv2)
-- `parted` - static parted binary ([build scripts](https://github.com/pocketblue/parted-static), parted license - GPLv3)
 
 #### Recommended partition layout
 
-The main images can be flashed into existing partitions:
+The images can be flashed into existing partitions:
 
 - `vbmeta` - `images/vbmeta-disabled.img`
-- `boot` - U-Boot (`images/uboot.img`)
+- `boot` - U-Boot (`images/uboot.img`) / Aloha (`images/aloha.img`)
 - `rawdump` - ESP (`images/fedora_esp.raw`)
 - `cust` - /boot partition (`images/fedora_boot.raw`)
 - `userdata` - root partition (`images/fedora_rootfs.raw`)
-
-Samsung UFS variant requires creating at least one new partition at least 300 MiB in size
-for the ESP (`fedora_esp.raw`). `/boot` and rootfs images can still be flashed into vendor partitions.
-A recovery (e.g. TWRP) can be used to repartition the device.
 
 !!! info "`rawdump` and `cust` partitions"
 
@@ -154,9 +137,9 @@ Available images:
 
 Sometimes sound may start cracking. It can be fixed by rebooting the device, or by using headphones.
 
-### Pen charging on Samsung UFS Pocketblue images
+### Pen charging on rodriguezst images
 
-Samsung UFS images currently don't ship a driver for pen charging.
+Rodriguezst images currently don't ship a driver for pen charging.
 
 ## Uninstall Fedora and get stock ROM back
 
@@ -169,6 +152,6 @@ Samsung UFS images currently don't ship a driver for pen charging.
 
 - `pocketblue/common` - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/common) / [github](https://github.com/pocketblue/packages)
 - `pocketblue/sm8150` - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/sm8150) / [github](https://github.com/pocketblue/packages)
-- `pocketblue/sm8150-samsung-ufs` (Samsung UFS images only) - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/sm8150-samsung-ufs) / [github](https://github.com/pocketblue/packages)
+- `pocketblue/sm8150-samsung-ufs` (rodriguezst images only) - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/sm8150-samsung-ufs) / [github](https://github.com/pocketblue/packages)
 - `@mobility/gnome-mobile` - [copr](https://copr.fedorainfracloud.org/coprs/g/mobility/gnome-mobile)
 - [kernel source code](https://gitlab.com/sm8150-mainline/linux)
