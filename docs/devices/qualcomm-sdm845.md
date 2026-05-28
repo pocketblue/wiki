@@ -134,6 +134,6 @@ Available images:
 
 - `pocketblue/common` - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/common) / [github](https://github.com/pocketblue/packages)
 - `pocketblue/sdm845` - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/sdm845) / [github](https://github.com/fedora-remix-mobility/packages)
+- `pocketblue/droid-juicer` - [copr](https://copr.fedorainfracloud.org/coprs/pocketblue/droid-juicer)
 - `@mobility/gnome-mobile` - [copr](https://copr.fedorainfracloud.org/coprs/g/mobility/gnome-mobile)
-- `samcday/droid-juicer` - [copr](https://copr.fedorainfracloud.org/coprs/samcday/droid-juicer)
 - [kernel source code](https://github.com/pocketblue/linux)
