@@ -80,8 +80,11 @@ Learn how to upgrade the system and install packages in the following guide: [In
 You can rebase to a different image, for example to switch your desktop environment. To do this, run:
 
 ```shell
-rpm-ostree reset
-sudo bootc switch <IMAGE>
+sudo bootc switch --enforce-container-sigpolicy <IMAGE>
+
+# or
+
+sudo rpm-ostree rebase ostree-image-signed:docker://<IMAGE>
 ```
 
 Available images:

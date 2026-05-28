@@ -17,8 +17,8 @@ and extract the archive, then proceed to installation.
 
 Boot into fastboot, connect your device to your computer via usb, and run the installation script:
 
-- on Linux: `flash-xiaomi-pipa.sh`
-- on Windows: `flash-xiaomi-pipa.cmd`
+- on Linux: `flash.sh`
+- on Windows: `flash.cmd`
 
 Your device will reboot and boot into Pocketblue automatically.
 
@@ -30,7 +30,7 @@ Your device will reboot and boot into Pocketblue automatically.
 
 The archive contains the following images:
 
-- `kxboot.img` - kxboot, a kexec-based bootloader ([source](https://github.com/timoxa0/kxboot-pipa), GPLv3)
+- `silicium.img` - Mu Silicium UEFI implementation ([source](https://github.com/onesaladleaf/Mu-Silicium), GPLv3)
 - `vbmeta-disabled.img` - vbmeta partition image disabling verified boot, generated using avbtool
 - `fedora_boot.raw` - Fedora /boot partition, contains kernels, initrd images, bootloader configs, etc
 - `fedora_esp.raw` - EFI System Partition, contains EFI executables
@@ -39,15 +39,17 @@ The archive contains the following images:
 #### Recommended partition layout
 
 - `vbmeta` - `images/vbmeta-disabled.img`
-- `boot` - kxboot (`images/kxboot.img`)
+- `boot` - Silicium (`images/silicium.img`)
 - `rawdump` - ESP (`images/fedora_esp.raw`)
 - `cust` - /boot partition (`images/fedora_boot.raw`)
 - `userdata` - root partition (`images/fedora_rootfs.raw`)
 
-`rawdump` (partition for dumping crash data on qualcomm devices)
-and `cust` (partition for region-specific configurations and preloads)
-partition contents aren't required for the device to function correctly and thus
-they can be used to store Fedora data.
+!!! info "`rawdump` and `cust` partitions"
+
+    `rawdump` (partition for dumping crash data on qualcomm devices)
+    and `cust` (partition for region-specific configurations and preloads)
+    partition contents aren't required for the device to function correctly and thus
+    they can be used to store Fedora data.
 
 #### Flashing
 
@@ -63,9 +65,9 @@ Disable verified boot:
 fastboot flash vbmeta_ab images/vbmeta-disabled.img
 ```
 
-Flash kxboot:
+Flash Silicium:
 ```shell
-fastboot flash boot_ab images/kxboot.img
+fastboot flash boot_ab images/silicium.img
 ```
 
 Flash Fedora partitions:
@@ -93,8 +95,11 @@ Learn how to upgrade the system and install packages in the following guide: [In
 You can rebase to a different image, for example to switch your desktop environment. To do this, run:
 
 ```shell
-rpm-ostree reset
-sudo bootc switch <IMAGE>
+sudo bootc switch --enforce-container-sigpolicy <IMAGE>
+
+# or
+
+sudo rpm-ostree rebase ostree-image-signed:docker://<IMAGE>
 ```
 
 Available images:

@@ -29,3 +29,25 @@ Use `bootc upgrade` to update the system image, or `rpm-ostree upgrade` to updat
 
 !!! note
     `bootc upgrade` will not work if you have previously made overrides using `rpm-ostree`. In this case use `rpm-ostree upgrade`
+
+## Switching to a signed image
+
+By default, the system container image signature isn't verified. You can rebase to a signed image for increased security.
+
+First, check what image you're currently running with `sudo bootc status` or `rpm-ostree status`. Then:
+
+If you use bootc:
+
+```shell
+sudo bootc upgrade
+reboot
+sudo bootc switch --enforce-container-sigpolicy <CURRENT IMAGE>
+```
+
+If you use rpm-ostree:
+
+```shell
+sudo rpm-ostree upgrade
+reboot
+sudo rpm-ostree rebase ostree-image-signed:docker://<CURRENT IMAGE>
+```

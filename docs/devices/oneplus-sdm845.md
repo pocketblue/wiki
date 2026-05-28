@@ -56,4 +56,4 @@ reboot
 
 ## Unbricking using python3-edl
 
-[github.com/pocketblue/oneplus6-unbrick](https://github.com/pocketblue/oneplus6-unbrick)
+[github.com/pocketblue/oneplus-sdm845-unbrick](https://github.com/pocketblue/oneplus-sdm845-unbrick)
