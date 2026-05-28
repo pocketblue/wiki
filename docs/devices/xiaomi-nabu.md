@@ -144,6 +144,10 @@ Sometimes sound may start cracking. It can be fixed by rebooting the device, or 
 
 Rodriguezst images currently don't ship a driver for pen charging.
 
+## Dual-boot with Android
+
+Follow the [dualboot guide](https://github.com/pocketblue/dualboot) to run Android alongside Pocketblue
+
 ## Uninstall Fedora and get stock ROM back
 
 - download and unpack the `MIUI 14.0.8.0.TKXMIXM` archive [from here](https://miuirom.org/tablets/xiaomi-pad-5)
