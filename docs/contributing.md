@@ -49,13 +49,14 @@ support on anything referencing AI output.
 
 ## Repository layout
 
-- `Justfile` - build recipes
+- `Justfile` - entrypoint for `just` build recipes
 - `Containerfile` - container definition
 - `common/` - common scripts and files for all images
 - `devices/<device-name>/` - device-specific scripts and files
     - `.../build-aux/` - auxiliary device-specific data and scripts
     - `.../build-aux/device.conf` - various device configuration options (see below)
 - `desktops/<desktop-name>/` - desktop-environment-specific scripts and files
+- `tools/` - various build scripts and recipes
 - `bootc-image-builder.toml` - bootc-image-builder config
 
 ### device.conf
