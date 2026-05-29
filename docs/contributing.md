@@ -136,6 +136,45 @@ Setup the repository:
 
 You can now use Github Actions to build container images and disk images!
 
+## Building disk images
+
+Disk images are built using the `bootc-image-builder` tool. They can be built locally on your device, or on Github Actions.
+Cross-arch builds are unsupported.
+
+Disk building process uses the configuration options from the `device.conf` file.
+
+### Building locally
+
+Fastest method, because you don't need to wait for artifact uploads and downloads.
+
+Build a disk image with the `disk` recipe, e.g.:
+
+```shell
+just device=qualcomm-sdm845 desktop=phosh tag=44 disk
+```
+
+Postprocess the image:
+
+```shell
+just device=qualcomm-sdm845 desktop=phosh tag=44 postprocess
+```
+
+Done.
+
+Additional `just` parameters for building disk images:
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| bib_config | bootc-image-builder config | `./bootc-image-builder.toml` |
+| bib_output | disk image output directory | `./output` |
+| disk_type | disk image type | `raw` |
+| rootfs | root filesystem | `btrfs` |
+| compression_7z | compression options for GHA artifact collection |  |
+
+### Building with Github Actions
+
+Use the `images` workflow to build disk images on GHA.
+
 ## Porting to a new device
 
 ### Adding support to the image
