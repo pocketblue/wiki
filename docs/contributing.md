@@ -3,21 +3,6 @@
 Thanks for taking the time to help our project out! Here you will find information
 that will help you contribute to Pocketblue
 
-## Table of Contents
-
-- [Table of Contents](#table-of-contents)
-- [Introduction](#introduction)
-- [Use of Generative AI](#use-of-generative-ai)
-- [Repository layout](#repository-layout)
-    - [device.conf](#deviceconf)
-- [Building OCI images](#building-oci-images)
-    - [Building locally](#building-locally)
-    - [Building with Github Actions](#building-with-github-actions)
-- [Porting to a new device](#porting-to-a-new-device)
-    - [Adding support to the image](#adding-support-to-the-image)
-    - [Building disk images](#building-disk-images)
-    - [Flashing](#flashing)
-
 ## Introduction
 
 Pocketblue is an atomic system that relies on OCI, OSTree and Bootc technologies.
@@ -49,23 +34,13 @@ support on anything referencing AI output.
 
 ## Repository layout
 
-- `Justfile` - build recipes
+- `Justfile` - entrypoint for `just` build recipes
 - `Containerfile` - container definition
 - `common/` - common scripts and files for all images
 - `devices/<device-name>/` - device-specific scripts and files
-    - `.../build-aux/` - auxiliary device-specific data and scripts
-    - `.../build-aux/device.conf` - various device configuration options (see below)
 - `desktops/<desktop-name>/` - desktop-environment-specific scripts and files
+- `tools/` - various build scripts and recipes
 - `bootc-image-builder.toml` - bootc-image-builder config
-
-### device.conf
-
-Available options:
-
-- `esp_size` - ESP partition image size
-- `boot_size` - boot partition image size
-- `install_dtb` - boolean, whether to install device trees to ESP
-- `split_partitions` - boolean, whether to split `disk.raw` image to separate `fedora_rootfs.raw`, `fedora_boot.raw`, and `fedora_esp.raw` partition images
 
 
 ## Building OCI images
@@ -97,9 +72,6 @@ This will result in an image tagged `localhost/qualcomm-sdm845-phosh:44-test`. T
 ```shell
 just device=qualcomm-sdm845 desktop=phosh tag=44-test rebase
 
-# alternatively, use a full ref:
-just rebase localhost/qualcomm-sdm845-phosh:44-test
-
 # if you have already rebased to this image before:
 sudo rpm-ostree upgrade
 ```
@@ -114,10 +86,10 @@ Supported `just` parameters (all parameters are optional):
 | device | Device name (see `devices/`) | qualcomm-sdm845 |
 | desktop | Desktop environment (see `desktops/`) | phosh |
 | base | Base image | Inferred from the `desktop` option |
-| base_bootc | fedora-bootc image, used for rechunking | `quay.io/fedora/fedora-bootc:` + `branch` |
 | registry | Container registry | localhost |
 | expires_after | Tag expiration time, e.g. 1w |  |
 | arch | Architecture | arm64 |
+| full_image | Full image name and tag | `<registry>/<device>-<desktop>:<tag>` |
 
 ### Building with Github Actions
 
@@ -133,41 +105,161 @@ Setup the repository:
 
 You can now use Github Actions to build container images and disk images!
 
+
+## Building disk images
+
+Disk images are built using the `bootc-image-builder` tool. They can be built locally on your device, or on Github Actions.
+Cross-arch builds are not supported.
+
+Disk image building process uses the configuration options from the `device.conf` file.
+
+### Building locally
+
+Fastest method, because you don't need to wait for artifact uploads and downloads.
+
+Build a disk image with the `disk` recipe, e.g.:
+
+```shell
+just device=qualcomm-sdm845 desktop=phosh tag=44 disk
+```
+
+Postprocess the image:
+
+```shell
+just device=qualcomm-sdm845 desktop=phosh tag=44 postprocess
+```
+
+Done.
+
+Additional `just` parameters for building disk images:
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| bib_config | bootc-image-builder config | `./bootc-image-builder.toml` |
+| bib_output | disk image output directory | `./output` |
+| disk_type | disk image type | `raw` |
+| rootfs | root filesystem | `btrfs` |
+| compression_7z | compression options for GHA artifact collection |  |
+
+### Building with Github Actions
+
+Use the `images` workflow to build disk images on GHA.
+
+
+## Working with the codebase
+
+### Devices
+
+Scripts and other files needed to build images for certain devices are located in the `devices/` directory.
+Device subdirectories should follow the `<vendor>-<codename>` naming scheme.
+
+Device subdirectory structure:
+
+- `build` (required) - the main build script which performs all necessary modifications to the image (e.g. install the kernel and firmware, copy over the files, etc)
+- `files/` - contains the files that should be directly copied into the image
+- `build-aux/` (required) - auxiliary data and scripts for building disk images
+    - `artifacts.sh` (required) - script that processes and collects all artifacts
+    - `device.conf` (required) - various device configuration options
+    - `extra-sources` - extra files to be downloaded
+- `flash-scripts/` - contains scripts that flash the images to the device
+
+#### device.conf
+
+Available options:
+
+- `esp_size` - ESP partition image size
+- `esp_fat_size` - ESP partition's FAT type (defaults to FAT32)
+- `esp_sector_size` - ESP sector size
+- `boot_size` - boot partition image size
+- `install_dtb` - boolean, whether to install device trees to ESP
+- `split_partitions` - boolean, whether to split `disk.raw` image into separate `fedora_rootfs.raw`, `fedora_boot.raw`, and `fedora_esp.raw` partition images
+- `build_erofs` - boolean, whether to build erofs images from containers' filesystem contents
+- `device_base` - base device of the variant (only for image variants)
+- `device_variant` - device variant name (only for image variants)
+
+#### extra-sources
+
+Extra files to be downloaded, one file per line.
+
+Columns separated by spaces:
+
+- file name (e.g. `u-boot.tar.gz` or `images/silicium.img`)
+- download URL
+- sha256 checksum
+
+#### artifacts.sh
+
+This script processes the artifacts and collects them into a single directory structure (`$OUT_PATH`).
+
+The following env vars are provided:
+
+- `$DEVICE_PATH` - points to the current device's directory
+- `$OUT_PATH` - the directory that will contain all of the final files
+
+Disk images are automatically placed into `$OUT_PATH/images`.
+Files downloaded from `extra-sources` are automatically placed into `$OUT_PATH`.
+
+#### Device variants
+
+Apply additional modifications to existing devices.
+Have their own subdirectories named `<vendor>-<codename>-<variant>`
+
+The `build` script should call the base device's `build` script, i.e.:
+
+```shell
+env --chdir=../xiaomi-nabu ./build
+```
+
+Variants should have their own `build-aux` directory and the following options must be added to the `device.conf` file:
+
+```
+device_base=<base device name, e.g. xiaomi-nabu>
+device_variant=<variant name, e.g. rodriguezst>
+```
+
+When built on GHA, the variant images are pushed into their base device's image repo
+with the variant name added to the tag (e.g. `:44-rodriguezst`)
+
+### Common build files
+
+Common files and scripts that can be used by other device or desktop scripts are located in the `common/` directory.
+The `common/build` script is the first script to be called at the beginning of the container build.
+
+### Desktops
+
+This stage installs and configures the desktop environment. The entry point is `desktops/<desktop>/build`.
+Extra files (if any) should be placed in `desktops/<desktop>/files`.
+
 ## Porting to a new device
+
+### Does my device qualify?
+
+The device qualifies only if *both* of the following criteria are met:
+
+1. It can run the upstream Fedora kernel or has an actively maintained mainline kernel fork
+2. It has a working UEFI implementation (U-Boot is preferred)
 
 ### Adding support to the image
 
-To add a new device, create a new subdirectory in `devices/` with a device alias,
-following the `<vendor>-<codename>` naming scheme.
+To add support for a new device, you should create its subdirectory in `devices/`
+and populate it according to the "Working with the codebase" section.
 
-The directory should contain:
+Generally, the device may need a kernel, which you should package and publish to [Fedora COPR](https://copr.fedorainfracloud.org/).
+We prefer kernels to be packaged with ARKify (see the [pocketblue/linux](https://github.com/pocketblue/linux) repo),
+but it may be pretty difficult to do at first, so the kernel can initially be packaged with a simple `.spec` file
+(see some kernels in [pocketblue/packages](https://github.com/pocketblue/packages)).
 
-- An executable script named `build` that will perform all necessary modifications to the image (e.g. install the kernel and firmware, copy over the files, etc)
-- `build-aux/device.conf` file containing the size of the EFI system partition
-- `build-aux/artifacts.sh` script to collect build artifacts of your device for further distribution
-- `files/` directory with any additional files, e.g. `.repo` files for your copr repositories
-
-If your device requires a custom kernel or firmware, you should publish them to
-[Fedora COPR](https://copr.fedorainfracloud.org/) as RPM packages.
-See [sm8150-rpms](https://github.com/pocketblue/sm8150-rpms) and [sm8250-rpms](https://github.com/pocketblue/sm8250-rpms)
-for the example RPM specs.
-
-Finally, add your device to the lists in the `.github/workflows/containers.yml` and `.github/workflows/images.yml` workflows.
-
-### Building disk images
-
-Use Github Actions to build the images:
-
-1. Run the `containers` workflow to build the OCI images
-2. Run the `images` workflow to build the flashable disk images
+You will also need firmware.
+You can package and publish it to COPR *if the licence of the firmware is compatible with COPR and Fedora requirements*.
+Another option is to extract the firmware at boot using [droid-juicer](https://gitlab.com/mobian1/droid-juicer).
 
 ### Flashing
 
-Finally, flash the system to your device:
+After implementing everything needed, building container images and building disk images - you should:
 
 - Find the suitable partitions to flash the root partition, the /boot partition and the ESP
 - Flash U-Boot (or any alternative that can boot EFI executables on your device) to the android boot partition
-- Flash boot.raw, esp.raw and root.raw using fastboot or U-Boot's mass storage mode
+- Flash fedora_boot.raw, fedora_esp.raw and fedora_rootfs.raw using fastboot or U-Boot's mass storage mode
 - Reboot and test Pocketblue!
 
 !!! caution
