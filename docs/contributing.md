@@ -3,21 +3,6 @@
 Thanks for taking the time to help our project out! Here you will find information
 that will help you contribute to Pocketblue
 
-## Table of Contents
-
-- [Table of Contents](#table-of-contents)
-- [Introduction](#introduction)
-- [Use of Generative AI](#use-of-generative-ai)
-- [Repository layout](#repository-layout)
-    - [device.conf](#deviceconf)
-- [Building OCI images](#building-oci-images)
-    - [Building locally](#building-locally)
-    - [Building with Github Actions](#building-with-github-actions)
-- [Porting to a new device](#porting-to-a-new-device)
-    - [Adding support to the image](#adding-support-to-the-image)
-    - [Building disk images](#building-disk-images)
-    - [Flashing](#flashing)
-
 ## Introduction
 
 Pocketblue is an atomic system that relies on OCI, OSTree and Bootc technologies.
