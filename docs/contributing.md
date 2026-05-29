@@ -64,9 +64,14 @@ support on anything referencing AI output.
 Available options:
 
 - `esp_size` - ESP partition image size
+- `esp_fat_size` - ESP partition's FAT type (defaults to FAT32)
+- `esp_sector_size` - ESP sector size
 - `boot_size` - boot partition image size
 - `install_dtb` - boolean, whether to install device trees to ESP
 - `split_partitions` - boolean, whether to split `disk.raw` image to separate `fedora_rootfs.raw`, `fedora_boot.raw`, and `fedora_esp.raw` partition images
+- `build_erofs` - boolean, whether to build erofs images from containers' filesystem contents
+- `device_base` - base device of the variant (only for image variants)
+- `device_variant` - device variant name (only for image variants)
 
 
 ## Building OCI images
