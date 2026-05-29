@@ -103,9 +103,6 @@ This will result in an image tagged `localhost/qualcomm-sdm845-phosh:44-test`. T
 ```shell
 just device=qualcomm-sdm845 desktop=phosh tag=44-test rebase
 
-# alternatively, use a full ref:
-just rebase localhost/qualcomm-sdm845-phosh:44-test
-
 # if you have already rebased to this image before:
 sudo rpm-ostree upgrade
 ```
@@ -120,10 +117,10 @@ Supported `just` parameters (all parameters are optional):
 | device | Device name (see `devices/`) | qualcomm-sdm845 |
 | desktop | Desktop environment (see `desktops/`) | phosh |
 | base | Base image | Inferred from the `desktop` option |
-| base_bootc | fedora-bootc image, used for rechunking | `quay.io/fedora/fedora-bootc:` + `branch` |
 | registry | Container registry | localhost |
 | expires_after | Tag expiration time, e.g. 1w |  |
 | arch | Architecture | arm64 |
+| full_image | Full image name and tag | `<registry>/<device>-<desktop>:<tag>` |
 
 ### Building with Github Actions
 
