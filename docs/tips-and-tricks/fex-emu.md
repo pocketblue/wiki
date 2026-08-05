@@ -11,15 +11,13 @@ rpm-ostree install fex-emu
 Create a config file:
 
 ```shell
-mkdir -p ~/.config/.fex-emu
+mkdir -p ~/.config/fex-emu
 echo '{
   "Config": {
     "RootFS": "/usr/share/fex-emu/RootFS/default.erofs"
   }
-}' | tee ~/.fex-emu/Config.json
+}' | tee ~/.config/fex-emu/Config.json
 ```
-
-`~/.config` support is not done yet in FEX-2601, but already merged and will be in the next release - https://github.com/FEX-Emu/FEX/issues/4369
 
 Disable qemu and enable fex:
 
@@ -45,3 +43,4 @@ rpm2cpio steam*.rpm | cpio -idmv
 
 FEXInterpreter ~/.local/share/steam/usr/lib/steam/bin_steam.sh
 ```
+
