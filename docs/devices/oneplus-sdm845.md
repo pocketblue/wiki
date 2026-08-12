@@ -35,15 +35,14 @@ sudo chown user:user tmp.dtb
 # create and enter a container
 toolbox create fedora
 toolbox enter fedora
-podman exec -it fedora bash
 
 # modify the dtb
-dnf install dtc
-cd /home/user
+sudo dnf install dtc
 dtc tmp.dtb -o tmp.dts
 sed -i 's/bq27441/bq27541/' tmp.dts
 sed -i 's/bq27411/bq27541/' tmp.dts
 dtc tmp.dts -o tmp.dtb
+rm tmp.dts
 
 # exit the container
 exit
