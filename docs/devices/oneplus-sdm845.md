@@ -13,7 +13,6 @@ See [qualcomm-sdm845#installation](qualcomm-sdm845.md#installation)
 Recommended partition layout for manual installation:
 
 - `boot` - U-Boot (`images/u-boot-<DEVICE>.img`)
-- `system_a` - /boot partition (`images/fedora_boot.raw`)
 - `system_b` - ESP (`images/fedora_esp.raw`)
 - `userdata` - root partition (`images/fedora_rootfs.raw`)
 

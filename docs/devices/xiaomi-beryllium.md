@@ -29,6 +29,5 @@ The panel variant is signified by the `msm_drm.dsi_display0` argument
 Recommended partition layout for manual installation:
 
 - `boot` - U-Boot (`images/u-boot-<DEVICE>.img`)
-- `system` - /boot partition (`images/fedora_boot.raw`)
 - `cust` - ESP (`images/fedora_esp.raw`)
 - `userdata` - root partition (`images/fedora_rootfs.raw`)
