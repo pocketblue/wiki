@@ -40,7 +40,6 @@ support on anything referencing AI output.
 - `devices/<device-name>/` - device-specific scripts and files
 - `desktops/<desktop-name>/` - desktop-environment-specific scripts and files
 - `tools/` - various build scripts and recipes
-- `bootc-image-builder.toml` - bootc-image-builder config
 
 
 ## Building OCI images
@@ -49,7 +48,7 @@ support on anything referencing AI output.
 
 You can build container images locally using Just and Buildah.
 The best practice is to build images directly on your target device if it already runs Linux.
-Cross-arch container builds via qemu are supported but will take much longer.
+Cross-arch container builds via qemu are supported but will take longer.
 
 Build tools are preinstalled on Pocketblue. To install them on a different system:
 
@@ -61,16 +60,16 @@ A typical example of a local build process:
 
 ```shell
 # build the image:
-just device=qualcomm-sdm845 desktop=phosh tag=44-test build
+sudo just device=qualcomm-sdm845 desktop=phosh tag=44-test build
 
 # rechunk the image:
-just device=qualcomm-sdm845 desktop=phosh tag=44-test rechunk
+sudo just device=qualcomm-sdm845 desktop=phosh tag=44-test rechunk
 ```
 
 This will result in an image tagged `localhost/qualcomm-sdm845-phosh:44-test`. To rebase to the newly built image:
 
 ```shell
-just device=qualcomm-sdm845 desktop=phosh tag=44-test rebase
+sudo just device=qualcomm-sdm845 desktop=phosh tag=44-test rebase
 
 # if you have already rebased to this image before:
 sudo rpm-ostree upgrade
@@ -90,6 +89,7 @@ Supported `just` parameters (all parameters are optional):
 | expires_after | Tag expiration time, e.g. 1w |  |
 | arch | Architecture | arm64 |
 | full_image | Full image name and tag | `<registry>/<device>-<desktop>:<tag>` |
+| fallback_image | Used as a base for rechunking if full_image doesn't exist | `<registry>/<device>-<desktop>:<branch>` |
 
 ### Building with Github Actions
 
@@ -108,7 +108,7 @@ You can now use Github Actions to build container images and disk images!
 
 ## Building disk images
 
-Disk images are built using the `bootc-image-builder` tool. They can be built locally on your device, or on Github Actions.
+Disk images are built using the OSBuild image-builder tool. They can be built locally on your device, or on Github Actions.
 Cross-arch builds are not supported.
 
 Disk image building process uses the configuration options from the `device.conf` file.
@@ -120,26 +120,16 @@ Fastest method, because you don't need to wait for artifact uploads and download
 Build a disk image with the `disk` recipe, e.g.:
 
 ```shell
-just device=qualcomm-sdm845 desktop=phosh tag=44 disk
+sudo just device=qualcomm-sdm845 desktop=phosh tag=44 disk
 ```
 
 Postprocess the image:
 
 ```shell
-just device=qualcomm-sdm845 desktop=phosh tag=44 postprocess
+sudo just device=qualcomm-sdm845 desktop=phosh tag=44 postprocess
 ```
 
 Done.
-
-Additional `just` parameters for building disk images:
-
-| Option | Description | Default |
-|--------|-------------|---------|
-| bib_config | bootc-image-builder config | `./bootc-image-builder.toml` |
-| bib_output | disk image output directory | `./output` |
-| disk_type | disk image type | `raw` |
-| rootfs | root filesystem | `btrfs` |
-| compression_7z | compression options for GHA artifact collection |  |
 
 ### Building with Github Actions
 
@@ -157,6 +147,7 @@ Device subdirectory structure:
 
 - `build` (required) - the main build script which performs all necessary modifications to the image (e.g. install the kernel and firmware, copy over the files, etc)
 - `files/` - contains the files that should be directly copied into the image
+    - `usr/lib/image-builder/bootc/disk.yaml` (required) - partiton layout
 - `build-aux/` (required) - auxiliary data and scripts for building disk images
     - `artifacts.sh` (required) - script that processes and collects all artifacts
     - `device.conf` (required) - various device configuration options
@@ -167,15 +158,20 @@ Device subdirectory structure:
 
 Available options:
 
-- `esp_size` - ESP partition image size
-- `esp_fat_size` - ESP partition's FAT type (defaults to FAT32)
-- `esp_sector_size` - ESP sector size
-- `boot_size` - boot partition image size
 - `install_dtb` - boolean, whether to install device trees to ESP
-- `split_partitions` - boolean, whether to split `disk.raw` image into separate `fedora_rootfs.raw`, `fedora_boot.raw`, and `fedora_esp.raw` partition images
+- `split_partitions` - boolean, whether to split `disk.raw` image into separate `fedora_rootfs.raw` and `fedora_esp.raw` partition images
 - `build_erofs` - boolean, whether to build erofs images from containers' filesystem contents
 - `device_base` - base device of the variant (only for image variants)
 - `device_variant` - device variant name (only for image variants)
+
+#### disk.yaml
+
+This file contains the desired partition layout for the device. If `split_partitions` is set to
+`true` in `device.conf`, then exactly 2 partitions should be defined: ESP and root.
+`/boot` should be placed on a separate subvolume of the root partition.
+
+`image-builder` looks for this file at `/usr/lib/image-builder/bootc/disk.yaml` *inside of the container*,
+so if you change `disk.yaml` you must rebuild the image.
 
 #### extra-sources
 
@@ -259,7 +255,7 @@ After implementing everything needed, building container images and building dis
 
 - Find the suitable partitions to flash the root partition, the /boot partition and the ESP
 - Flash U-Boot (or any alternative that can boot EFI executables on your device) to the android boot partition
-- Flash fedora_boot.raw, fedora_esp.raw and fedora_rootfs.raw using fastboot or U-Boot's mass storage mode
+- Flash fedora_esp.raw and fedora_rootfs.raw using fastboot or U-Boot's mass storage mode
 - Reboot and test Pocketblue!
 
 !!! caution
