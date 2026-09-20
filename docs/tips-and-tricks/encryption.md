@@ -22,7 +22,7 @@ sudo authselect enable-feature with-systemd-homed
 Create a new user with a luks-encrypted home directory:
 
 ```shell
-homectl create --storage=luks --fs-type=ext4 <username>
+homectl create --storage=luks --luks-discard=true --luks-offline-discard=true --fs-type=ext4 <username>
 ```
 
 ## Logging in
