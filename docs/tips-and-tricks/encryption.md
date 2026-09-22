@@ -41,7 +41,7 @@ If you're using a Phosh image, Phrog will not allow entering the username manual
 new user with GDM, then rebase back to the Phosh image. Phrog will then pick the new user up and allow you to log in.
 
 !!! note
-    For unknown reasons, Phrog may require you to **enter your password twice**.
+    For unknown reasons, GDM and Phrog may require you to **enter your password twice**.
 
 ## Configuring the user
 
