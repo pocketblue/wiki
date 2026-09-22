@@ -22,10 +22,11 @@ sudo authselect enable-feature with-systemd-homed
 Create a new user with a luks-encrypted home directory:
 
 ```shell
-homectl create --storage=luks --luks-extra-mount-options=defcontext=system_u:object_r:user_home_dir_t:s0 --fs-type=btrfs <username>
+homectl create --storage=luks --luks-discard=true --luks-offline-discard=true --fs-type=ext4 <username>
 ```
 
-For some reason, you have to set the password *again*:
+!!! note
+    GNOME/Phosh users may need to set the password again:
 
 ```shell
 homectl passwd <username>
@@ -36,11 +37,11 @@ homectl passwd <username>
 At first the user will not be listed in your display manager and you have to enter the username manually.
 To do this in GDM, click "Not listed?" when choosing a user.
 
-If you're using a Phosh image, Phrog will not allow entering the username manually. Instead you can rebase to a Gnome image and log in to your
+If you're using a Phosh image, Phrog will not allow entering the username manually. Instead you can rebase to a GNOME image and log in to your
 new user with GDM, then rebase back to the Phosh image. Phrog will then pick the new user up and allow you to log in.
 
 !!! note
-    For whatever reason, when logging into a systemd-homed user you have to **enter your password twice**.
+    For unknown reasons, GDM and Phrog may require you to **enter your password twice**.
 
 ## Configuring the user
 
