@@ -1,4 +1,4 @@
-## fetching logs from device running pocketblue
+# Fetching logs
 
 ### table of contents
 
