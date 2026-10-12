@@ -1,12 +1,5 @@
 # Fetching logs
 
-### table of contents
-
-- [requirements](#requirements)
-- [via ssh](#via-ssh)
-- [via usb mass storage](#via-usb-mass-storage)
-- [via serial console](#via-serial-console)
-
 ### requirements
 
 this guide expects you to have two devices:
