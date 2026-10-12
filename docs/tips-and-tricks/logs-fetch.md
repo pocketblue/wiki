@@ -59,7 +59,7 @@ If you want to share your log, upload it to paste.centos.org via `fpaste`
 
 ## Via serial console
 
-Linux creates its USB serial gadget relatively late during boot, so this method misses early Linux logs
+Linux creates its USB serial gadget relatively late during boot, so this method misses early linux logs
 
 Install `picocom` on your computer, e.g. on Fedora:
 
