@@ -61,11 +61,10 @@ if you want to share your log, upload it to paste.centos.org via `fpaste`
 
 linux creates its usb serial gadget relatively late during boot, so this method misses early linux logs
 
-install `picocom` in rootful toolbox on your computer
+Install `picocom` on your computer, e.g. on Fedora:
 
 ```bash
-sudo toolbox create
-sudo toolbox run sudo dnf install picocom
+sudo dnf install picocom
 ```
 
 reboot your phone and hold the volume down button just before uboot appears on the screen to open the boot menu. getting the timing right can be tricky, because pressing the button too early sends xiaomi devices into fastboot mode, while pressing it too late makes uboot skip the boot menu and boot pocketblue
