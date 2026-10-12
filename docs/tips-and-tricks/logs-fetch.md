@@ -1,65 +1,65 @@
 # Fetching logs
 
-### requirements
+### Requirements
 
-this guide expects you to have two devices:
+This guide expects you to have two devices:
 
-1. device with pocketblue and uboot installed, which we will fetch logs from
-2. computer running any linux distro, which will receive the logs
+1. Device with pocketblue and uboot installed, which we will fetch logs from
+2. Computer running any linux distro, which will receive the logs
 
-before starting, connect pocketblue device to your computer via usb cable
+Before starting, connect pocketblue device to your computer via USB cable
 
-### via ssh
+### Via ssh
 
-this is the simplest way, but it would not work if your system crashed before initializing ssh daemon and usb networking
+This is the simplest way, but it would not work if your system crashed before initializing ssh daemon and usb networking
 
-ssh to pocketblue device over usb network
+Ssh to pocketblue device over usb network
 
 ```bash
 ssh user@172.16.42.1
 ```
 
-once connected, explore logs
+Once connected, explore logs
 
 ```bash
 sudo journalctl -b
 ```
 
-if you want to share your log, you can upload it to paste.centos.org via `fpaste` tool which is preinstalled on pocketblue
+If you want to share your log, you can upload it to paste.centos.org via `fpaste` tool which is preinstalled on pocketblue
 
 ```bash
 sudo journalctl -b | fpaste
 ```
 
-### via usb mass storage
+### Via usb mass storage
 
-this is the best thing you can do if you can't ssh to your system
+This is the best thing you can do if you can't ssh to your system
 
-in the uboot boot menu, choose `3. Enable USB mass storage`
+In the uboot boot menu, choose `3. Enable USB mass storage`
 
-phone's storage should appear as a block device on your computer
+Phone's storage should appear as a block device on your computer
 
 ```bash
 lsblk -o NAME,PARTLABEL,FSTYPE,SIZE
 ```
 
-mount the rootfs partition
+Mount the rootfs partition
 
 ```bash
 sudo mount -o ro,rescue=nologreplay,subvol=/root /dev/disk/by-partlabel/userdata /mnt
 ```
 
-explore latest log
+Explore latest log
 
 ```bash
 sudo journalctl --directory=/mnt/ostree/deploy/default/var/log/journal -b 0
 ```
 
-if you want to share your log, upload it to paste.centos.org via `fpaste`
+If you want to share your log, upload it to paste.centos.org via `fpaste`
 
-### via serial console
+### Via serial console
 
-linux creates its usb serial gadget relatively late during boot, so this method misses early linux logs
+Linux creates its USB serial gadget relatively late during boot, so this method misses early Linux logs
 
 Install `picocom` on your computer, e.g. on Fedora:
 
@@ -67,32 +67,32 @@ Install `picocom` on your computer, e.g. on Fedora:
 sudo dnf install picocom
 ```
 
-reboot your phone and hold the volume down button just before uboot appears on the screen to open the boot menu. getting the timing right can be tricky, because pressing the button too early sends xiaomi devices into fastboot mode, while pressing it too late makes uboot skip the boot menu and boot pocketblue
+Reboot your phone and hold the volume down button just before u-boot appears on the screen to open the boot menu. Getting the timing right can be tricky, because pressing the button too early sends xiaomi devices into fastboot mode, while pressing it too late makes uboot skip the boot menu and boot pocketblue
 
-in the boot menu, choose `2. Enable serial console gadget`
+In the boot menu, choose `2. Enable serial console gadget`
 
-make sure your computer detects it
+Make sure your computer detects it
 
 ```bash
 ls /dev/ttyACM0
 ```
 
-you can then connect to the serial console
+You can then connect to the serial console
 
 ```bash
 sudo picocom -q --imap lfcrlf -b 115200 /dev/ttyACM0
 ```
 
-press the down arrow key to redraw the boot menu in your terminal
+Press the down arrow key to redraw the boot menu in your terminal
 
-to disconnect, press `ctrl+a`, then `ctrl+x`
+To disconnect, press `ctrl+a`, then `ctrl+x`
 
-the next step is to enable the serial console in linux and boot it
+The next step is to enable the serial console in Linux and boot it
 
-boot into grub, select first boot entry, and press `e`. find the line beginning with `linux` and append this to the end of the line
+Boot into grub, select first boot entry, and press `e`. Find the line beginning with `linux` and append this to the end of the line
 
 ```shell
 console=tty0 console=ttyGS0,115200 loglevel=7 ignore_loglevel systemd.show_status=1 systemd.log_target=console
 ```
 
-then press `ctrl+x` to boot
+Then press `ctrl+x` to boot
