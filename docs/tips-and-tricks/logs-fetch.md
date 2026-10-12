@@ -87,16 +87,6 @@ press the down arrow key to redraw the boot menu in your terminal
 
 to disconnect, press `ctrl+a`, then `ctrl+x`
 
-if you want automatic reconnection, you can use a while loop instead
-
-```bash
-while true; do [ -e /dev/ttyACM0 ] && sudo toolbox run picocom -q --imap lfcrlf -b 115200 /dev/ttyACM0; sleep 1; done
-```
-
-to disconnect, press `ctrl+a`, then `ctrl+x` to exit picocom, and press `ctrl+c` to stop the loop
-
-when linux starts booting, the usb serial connection will drop. this loop will reconnect automatically once linux creates its own serial gadget, so you can start receiving linux boot logs
-
 the next step is to enable the serial console in linux and boot it
 
 #### vanilla pocketblue
