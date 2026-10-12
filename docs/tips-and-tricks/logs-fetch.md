@@ -87,12 +87,6 @@ press the down arrow key to redraw the boot menu in your terminal
 
 to disconnect, press `ctrl+a`, then `ctrl+x`
 
-you can also disconnect by opening another terminal tab and stopping the container
-
-```bash
-sudo podman stop --filter 'name=^fedora-toolbox-.*'
-```
-
 if you want automatic reconnection, you can use a while loop instead
 
 ```bash
