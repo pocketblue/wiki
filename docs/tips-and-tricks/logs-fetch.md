@@ -1,6 +1,6 @@
 # Fetching logs
 
-### Requirements
+## Requirements
 
 This guide expects you to have two devices:
 
@@ -9,7 +9,7 @@ This guide expects you to have two devices:
 
 Before starting, connect pocketblue device to your computer via USB cable
 
-### Via ssh
+## Via ssh
 
 This is the simplest way, but it would not work if your system crashed before initializing ssh daemon and usb networking
 
@@ -31,7 +31,7 @@ If you want to share your log, you can upload it to paste.centos.org via `fpaste
 sudo journalctl -b | fpaste
 ```
 
-### Via usb mass storage
+## Via usb mass storage
 
 This is the best thing you can do if you can't ssh to your system
 
@@ -57,7 +57,7 @@ sudo journalctl --directory=/mnt/ostree/deploy/default/var/log/journal -b 0
 
 If you want to share your log, upload it to paste.centos.org via `fpaste`
 
-### Via serial console
+## Via serial console
 
 Linux creates its USB serial gadget relatively late during boot, so this method misses early Linux logs
 
