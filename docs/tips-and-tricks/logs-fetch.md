@@ -81,7 +81,7 @@ ls /dev/ttyACM0
 you can then connect to the serial console
 
 ```bash
-sudo toolbox run picocom -q --imap lfcrlf -b 115200 /dev/ttyACM0
+sudo picocom -q --imap lfcrlf -b 115200 /dev/ttyACM0
 ```
 
 press the down arrow key to redraw the boot menu in your terminal
