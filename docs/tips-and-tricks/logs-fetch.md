@@ -35,6 +35,8 @@ sudo journalctl -b | fpaste
 
 This is the best thing you can do if you can't ssh to your system
 
+Reboot your phone and hold the volume down button just before u-boot appears on the screen to open the boot menu. Getting the timing right can be tricky, because pressing the button too early sends xiaomi devices into fastboot mode, while pressing it too late makes uboot skip the boot menu and boot pocketblue
+
 In the uboot boot menu, choose `3. Enable USB mass storage`
 
 Phone's storage should appear as a block device on your computer
@@ -67,9 +69,7 @@ Install `picocom` on your computer, e.g. on Fedora:
 sudo dnf install picocom
 ```
 
-Reboot your phone and hold the volume down button just before u-boot appears on the screen to open the boot menu. Getting the timing right can be tricky, because pressing the button too early sends xiaomi devices into fastboot mode, while pressing it too late makes uboot skip the boot menu and boot pocketblue
-
-In the boot menu, choose `2. Enable serial console gadget`
+In the uboot boot menu, choose `2. Enable serial console gadget`
 
 Make sure your computer detects it
 
