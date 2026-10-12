@@ -89,8 +89,6 @@ to disconnect, press `ctrl+a`, then `ctrl+x`
 
 the next step is to enable the serial console in linux and boot it
 
-#### vanilla pocketblue
-
 boot into grub, select first boot entry, and press `e`. find the line beginning with `linux` and append this to the end of the line
 
 ```shell
@@ -98,15 +96,3 @@ console=tty0 console=ttyGS0,115200 loglevel=7 ignore_loglevel systemd.show_statu
 ```
 
 then press `ctrl+x` to boot
-
-#### gmanka's builds without grub
-
-in the uboot boot menu, choose `5. Drop to shell`
-
-from your computer, paste this command into uboot
-
-```shell
-setenv bootargs ${bootargs} console=tty0 console=ttyGS0,115200 loglevel=7 ignore_loglevel systemd.show_status=1 systemd.log_target=console; run uenvcmd
-```
-
-you should start seeing linux logs in your terminal once linux reconnects
