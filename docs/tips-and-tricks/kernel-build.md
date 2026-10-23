@@ -36,7 +36,7 @@ curl https://gitlab.com/knurd42/linux/-/raw/arkify-arkify/arkify -o ~/.local/bin
 git clone https://gitlab.com/sdm845-mainline/linux
 ```
 
-replace url to kernel you want to arkify
+Replace the URL with the repo of the kernel you want to arkify
 
 Then checkout your preferred branch
 
