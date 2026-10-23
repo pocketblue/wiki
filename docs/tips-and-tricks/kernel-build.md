@@ -84,7 +84,7 @@ mock -r fedora-45-x86_64 \
 
 `ccache` plugin allows faster rebuilds
 
-## Copy built result to your device
+## Copy build result to your device
 
 Navigate to dir with build results
 
