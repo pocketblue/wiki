@@ -160,7 +160,7 @@ Enable copr repository
 sudo dnf copr enable <author>/<repo>
 ```
 
-If you have already have kernel override, reset it
+If you already have any rpm-ostree overrides, reset them
 
 ```bash
 rpm-ostree override reset --all
