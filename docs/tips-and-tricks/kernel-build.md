@@ -48,7 +48,7 @@ arkify
 
 ## Add configs for your device
 
-See [oneplus 6 config example](https://github.com/pocketblue/linux/commit/cbdc09c6753a)
+See [OnePlus 6 config example](https://github.com/pocketblue/linux/commit/cbdc09c6753a)
 
 ## Build srpm
 
