@@ -149,7 +149,7 @@ sudo rpm-ostree override replace \
 - Enable fedora aarch64 chroot for your fedora release
 - Press Create
 - On your copr repo page, press `New Package`
-- Put your repo url to `Clone url`
+- Put your repo url into the `Clone url` field
 - Choose `make srpm` build method
 
 ### Install kernel from copr
