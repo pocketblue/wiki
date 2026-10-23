@@ -118,7 +118,7 @@ export ver=$(basename kernel-core-*.aarch64.rpm .rpm | sed 's/^kernel-core-//')
 ls ./kernel{,-core,-modules-core,-modules,-modules-extra}-$ver.rpm
 ```
 
-If you have already have kernel override, reset it
+If you already have any rpm-ostree overrides, reset them
 
 ```bash
 rpm-ostree override reset --all
