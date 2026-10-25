@@ -64,6 +64,7 @@ For `aarch64` hosts
 mock -r fedora-45-aarch64 \
   --with baseonly \
   --without debuginfo \
+  --enable-plugin=tmpfs \
   --enable-plugin=ccache \
   --rebuild redhat/rpm/SRPMS/kernel-*.src.rpm
 ```
@@ -76,13 +77,17 @@ mock -r fedora-45-x86_64 \
   --with cross \
   --with baseonly \
   --without debuginfo \
+  --enable-plugin=tmpfs \
   --enable-plugin=ccache \
   --additional-package gcc-aarch64-linux-gnu \
   --additional-package binutils-aarch64-linux-gnu \
   --rebuild redhat/rpm/SRPMS/kernel-*.src.rpm
 ```
 
-`ccache` plugin allows faster rebuilds
+for faster builds, these plugins are advised to use:
+
+* `ccache` - cache for compiler
+* `tmpfs` - especially useful when you run mock from `toolbox`, reduces `fuse-overlayfs` storage bottleneck, provides in-memory build root, consumes more ram
 
 ## Copy build result to your device
 
