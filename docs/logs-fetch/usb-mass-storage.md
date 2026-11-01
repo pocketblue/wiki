@@ -1,4 +1,4 @@
-# Fetch logs via usb mass storage
+# Via USB mass storage
 
 This is the next simplest way after ssh,
 useful when your device can't start ssh daemon and usb networking,
