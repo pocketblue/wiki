@@ -84,7 +84,7 @@ mock -r fedora-45-x86_64 \
   --rebuild redhat/rpm/SRPMS/kernel-*.src.rpm
 ```
 
-for faster builds, these plugins are advised to use:
+These plugins are recommended for faster builds:
 
 * `ccache` - cache for compiler
 * `tmpfs` - especially useful when you run mock from `toolbox`, reduces `fuse-overlayfs` storage bottleneck, provides in-memory build root, consumes more ram
