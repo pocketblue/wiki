@@ -1,4 +1,4 @@
-# Fetch logs via ssh
+# Via SSH
 
 This is the simplest way, but it would not work if your system crashed before initializing ssh daemon and usb networking
 
