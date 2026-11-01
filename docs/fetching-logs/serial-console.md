@@ -1,4 +1,4 @@
-## Fetch logs via serial console
+# Via serial console
 
 This guide explains how to fetch early boot logs.
 Useful when your device crashes before it can write logs to storage.
