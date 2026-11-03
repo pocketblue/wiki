@@ -18,9 +18,9 @@ and extract the archive, then proceed to installation.
 Some nabu variants can't boot the main Pocketblue images.
 Usually this happens due to UFS-related problems.
 
-Try the main image first, (`pocketblue-xiaomi-nabu-*-44`).
+Try the main image first, (`pocketblue-xiaomi-nabu-*-45`).
 If it doesn't boot or you experience UFS-related issues, try
-one of the `pocketblue-xiaomi-nabu-*-44-rodriguezst` images,
+one of the `pocketblue-xiaomi-nabu-*-45-rodriguezst` images,
 which ship an outdated patched kernel.
 
 ### Automatic installation
@@ -125,11 +125,11 @@ sudo rpm-ostree rebase ostree-image-signed:docker://<IMAGE>
 
 Available images:
 
-- Gnome desktop - `quay.io/pocketblue/xiaomi-nabu-gnome-desktop:44`
-- Gnome mobile - `quay.io/pocketblue/xiaomi-nabu-gnome-mobile:44`
-- Plasma desktop - `quay.io/pocketblue/xiaomi-nabu-plasma-desktop:44`
-- Plasma mobile - `quay.io/pocketblue/xiaomi-nabu-plasma-mobile:44`
-- Phosh - `quay.io/pocketblue/xiaomi-nabu-phosh:44`
+- Gnome desktop - `quay.io/pocketblue/xiaomi-nabu-gnome-desktop:45`
+- Gnome mobile - `quay.io/pocketblue/xiaomi-nabu-gnome-mobile:45`
+- Plasma desktop - `quay.io/pocketblue/xiaomi-nabu-plasma-desktop:45`
+- Plasma mobile - `quay.io/pocketblue/xiaomi-nabu-plasma-mobile:45`
+- Phosh - `quay.io/pocketblue/xiaomi-nabu-phosh:45`
 
 ## Known issues
 

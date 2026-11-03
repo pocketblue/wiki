@@ -60,16 +60,16 @@ A typical example of a local build process:
 
 ```shell
 # build the image:
-sudo just device=qualcomm-sdm845 desktop=phosh tag=44-test build
+sudo just device=qualcomm-sdm845 desktop=phosh tag=45-test build
 
 # rechunk the image:
-sudo just device=qualcomm-sdm845 desktop=phosh tag=44-test rechunk
+sudo just device=qualcomm-sdm845 desktop=phosh tag=45-test rechunk
 ```
 
-This will result in an image tagged `localhost/qualcomm-sdm845-phosh:44-test`. To rebase to the newly built image:
+This will result in an image tagged `localhost/qualcomm-sdm845-phosh:45-test`. To rebase to the newly built image:
 
 ```shell
-sudo just device=qualcomm-sdm845 desktop=phosh tag=44-test rebase
+sudo just device=qualcomm-sdm845 desktop=phosh tag=45-test rebase
 
 # if you have already rebased to this image before:
 sudo rpm-ostree upgrade
@@ -79,7 +79,7 @@ Supported `just` parameters (all parameters are optional):
 
 | Option | Description | Default |
 |--------|-------------|---------|
-| branch | Base Fedora release branch | 44 |
+| branch | Base Fedora release branch | 45 |
 | tag | Tag of the resulting Pocketblue image | Same as `branch` |
 | rechunk_suffix | A suffix appended to the resulting image tag, does not affect the image contents or build process. Useful for images that will be rechunked afterwards |  |
 | device | Device name (see `devices/`) | qualcomm-sdm845 |
@@ -120,13 +120,13 @@ Fastest method, because you don't need to wait for artifact uploads and download
 Build a disk image with the `disk` recipe, e.g.:
 
 ```shell
-sudo just device=qualcomm-sdm845 desktop=phosh tag=44 disk
+sudo just device=qualcomm-sdm845 desktop=phosh tag=45 disk
 ```
 
 Postprocess the image:
 
 ```shell
-sudo just device=qualcomm-sdm845 desktop=phosh tag=44 postprocess
+sudo just device=qualcomm-sdm845 desktop=phosh tag=45 postprocess
 ```
 
 Done.
@@ -214,7 +214,7 @@ device_variant=<variant name, e.g. rodriguezst>
 ```
 
 When built on GHA, the variant images are pushed into their base device's image repo
-with the variant name added to the tag (e.g. `:44-rodriguezst`)
+with the variant name added to the tag (e.g. `:45-rodriguezst`)
 
 ### Common build files
 

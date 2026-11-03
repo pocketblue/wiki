@@ -122,11 +122,11 @@ sudo rpm-ostree rebase ostree-image-signed:docker://<IMAGE>
 
 Available images:
 
-- Phosh - `quay.io/pocketblue/qualcomm-sdm845-phosh:44`
-- Gnome mobile - `quay.io/pocketblue/qualcomm-sdm845-gnome-mobile:44`
-- Plasma mobile - `quay.io/pocketblue/qualcomm-sdm845-plasma-mobile:44`
-- Gnome desktop - `quay.io/pocketblue/qualcomm-sdm845-gnome-desktop:44`
-- Plasma desktop - `quay.io/pocketblue/qualcomm-sdm845-plasma-desktop:44`
+- Phosh - `quay.io/pocketblue/qualcomm-sdm845-phosh:45`
+- Gnome mobile - `quay.io/pocketblue/qualcomm-sdm845-gnome-mobile:45`
+- Plasma mobile - `quay.io/pocketblue/qualcomm-sdm845-plasma-mobile:45`
+- Gnome desktop - `quay.io/pocketblue/qualcomm-sdm845-gnome-desktop:45`
+- Plasma desktop - `quay.io/pocketblue/qualcomm-sdm845-plasma-desktop:45`
 
 ## Enabled copr repositories
 

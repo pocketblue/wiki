@@ -101,11 +101,11 @@ sudo rpm-ostree rebase ostree-image-signed:docker://<IMAGE>
 
 Available images:
 
-- Gnome desktop - `quay.io/pocketblue/xiaomi-pipa-gnome-desktop:44`
-- Gnome mobile - `quay.io/pocketblue/xiaomi-pipa-gnome-mobile:44`
-- Plasma desktop - `quay.io/pocketblue/xiaomi-pipa-plasma-desktop:44`
-- Plasma mobile - `quay.io/pocketblue/xiaomi-pipa-plasma-mobile:44`
-- Phosh - `quay.io/pocketblue/xiaomi-pipa-phosh:44`
+- Gnome desktop - `quay.io/pocketblue/xiaomi-pipa-gnome-desktop:45`
+- Gnome mobile - `quay.io/pocketblue/xiaomi-pipa-gnome-mobile:45`
+- Plasma desktop - `quay.io/pocketblue/xiaomi-pipa-plasma-desktop:45`
+- Plasma mobile - `quay.io/pocketblue/xiaomi-pipa-plasma-mobile:45`
+- Phosh - `quay.io/pocketblue/xiaomi-pipa-phosh:45`
 
 ## Cracking sound
 
