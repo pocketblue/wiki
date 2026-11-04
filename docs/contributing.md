@@ -249,7 +249,7 @@ To add support for a new device, you should create its subdirectory in `devices/
 and populate it according to the "Working with the codebase" section.
 
 Generally, the device may need a kernel, which you should package and publish to [Fedora COPR](https://copr.fedorainfracloud.org/).
-We prefer kernels to be packaged with ARKify (see the [pocketblue/linux](https://github.com/pocketblue/linux) repo),
+We prefer kernels to be packaged with ARKify (see the [kernel building page](tips-and-tricks/kernel-build.md)),
 but it may be pretty difficult to do at first, so the kernel can initially be packaged with a simple `.spec` file
 (see some kernels in [pocketblue/packages](https://github.com/pocketblue/packages)).
 
