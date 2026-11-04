@@ -38,7 +38,7 @@ FEXBash -c 'uname -a'
 ```shell
 mkdir -p ~/.local/share/steam
 cd ~/.local/share/steam
-curl -LO https://rpmfind.net/linux/rpmfusion/nonfree/fedora/releases/44/Everything/x86_64/os/Packages/s/steam-1.0.0.85-6.fc44.i686.rpm
+curl -LO https://rpmfind.net/linux/rpmfusion/nonfree/fedora/releases/45/Everything/x86_64/os/Packages/s/steam-1.0.0.87-4.fc45.x86_64.rpm
 rpm2cpio steam*.rpm | cpio -idmv
 
 FEXInterpreter ~/.local/share/steam/usr/lib/steam/bin_steam.sh

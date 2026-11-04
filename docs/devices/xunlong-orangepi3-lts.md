@@ -89,12 +89,12 @@ sudo rpm-ostree rebase ostree-image-signed:docker://<IMAGE>
 
 Available images:
 
-- TTY - `quay.io/pocketblue/xunlong-orangepi3-lts-tty:44`
-- Gnome desktop - `quay.io/pocketblue/xunlong-orangepi3-lts-gnome-desktop:44`
-- Gnome mobile - `quay.io/pocketblue/xunlong-orangepi3-lts-gnome-mobile:44`
-- Plasma desktop - `quay.io/pocketblue/xunlong-orangepi3-lts-plasma-desktop:44`
-- Plasma mobile - `quay.io/pocketblue/xunlong-orangepi3-lts-plasma-mobile:44`
-- Phosh - `quay.io/pocketblue/xunlong-orangepi3-lts-phosh:44`
+- TTY - `quay.io/pocketblue/xunlong-orangepi3-lts-tty:45`
+- Gnome desktop - `quay.io/pocketblue/xunlong-orangepi3-lts-gnome-desktop:45`
+- Gnome mobile - `quay.io/pocketblue/xunlong-orangepi3-lts-gnome-mobile:45`
+- Plasma desktop - `quay.io/pocketblue/xunlong-orangepi3-lts-plasma-desktop:45`
+- Plasma mobile - `quay.io/pocketblue/xunlong-orangepi3-lts-plasma-mobile:45`
+- Phosh - `quay.io/pocketblue/xunlong-orangepi3-lts-phosh:45`
 
 ## Notes
 

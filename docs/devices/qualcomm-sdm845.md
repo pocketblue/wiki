@@ -44,8 +44,8 @@ After installation, your device will reboot and boot into Pocketblue automatical
 The archive contains the following images:
 
 - `u-boot-*.img` - U-Boot, a bootloader implementing the UEFI API
-- `fedora_esp.raw` - EFI System Partition, contains EFI executables and device trees
-- `fedora_rootfs.raw` - root partition
+- `fedora_esp.img` - EFI System Partition, contains EFI executables and device trees
+- `fedora_rootfs.img` - root partition
 
 #### Recommended partition layout
 
@@ -79,8 +79,8 @@ fastboot flash boot images/u-boot-<DEVICE>.img
 
 Flash Fedora partitions:
 ```shell
-fastboot flash <ESP partition>   images/fedora_esp.raw
-fastboot flash <root partition>  images/fedora_rootfs.raw
+fastboot flash <ESP partition>   images/fedora_esp.img
+fastboot flash <root partition>  images/fedora_rootfs.img
 ```
 
 Reboot, this may take a while. **DO NOT** reboot via the power button: this can result in not all data being properly written to storage:
@@ -122,11 +122,11 @@ sudo rpm-ostree rebase ostree-image-signed:docker://<IMAGE>
 
 Available images:
 
-- Phosh - `quay.io/pocketblue/qualcomm-sdm845-phosh:44`
-- Gnome mobile - `quay.io/pocketblue/qualcomm-sdm845-gnome-mobile:44`
-- Plasma mobile - `quay.io/pocketblue/qualcomm-sdm845-plasma-mobile:44`
-- Gnome desktop - `quay.io/pocketblue/qualcomm-sdm845-gnome-desktop:44`
-- Plasma desktop - `quay.io/pocketblue/qualcomm-sdm845-plasma-desktop:44`
+- Phosh - `quay.io/pocketblue/qualcomm-sdm845-phosh:45`
+- Gnome mobile - `quay.io/pocketblue/qualcomm-sdm845-gnome-mobile:45`
+- Plasma mobile - `quay.io/pocketblue/qualcomm-sdm845-plasma-mobile:45`
+- Gnome desktop - `quay.io/pocketblue/qualcomm-sdm845-gnome-desktop:45`
+- Plasma desktop - `quay.io/pocketblue/qualcomm-sdm845-plasma-desktop:45`
 
 ## Enabled copr repositories
 

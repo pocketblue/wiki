@@ -60,16 +60,16 @@ A typical example of a local build process:
 
 ```shell
 # build the image:
-sudo just device=qualcomm-sdm845 desktop=phosh tag=44-test build
+sudo just device=qualcomm-sdm845 desktop=phosh tag=45-test build
 
 # rechunk the image:
-sudo just device=qualcomm-sdm845 desktop=phosh tag=44-test rechunk
+sudo just device=qualcomm-sdm845 desktop=phosh tag=45-test rechunk
 ```
 
-This will result in an image tagged `localhost/qualcomm-sdm845-phosh:44-test`. To rebase to the newly built image:
+This will result in an image tagged `localhost/qualcomm-sdm845-phosh:45-test`. To rebase to the newly built image:
 
 ```shell
-sudo just device=qualcomm-sdm845 desktop=phosh tag=44-test rebase
+sudo just device=qualcomm-sdm845 desktop=phosh tag=45-test rebase
 
 # if you have already rebased to this image before:
 sudo rpm-ostree upgrade
@@ -79,7 +79,7 @@ Supported `just` parameters (all parameters are optional):
 
 | Option | Description | Default |
 |--------|-------------|---------|
-| branch | Base Fedora release branch | 44 |
+| branch | Base Fedora release branch | 45 |
 | tag | Tag of the resulting Pocketblue image | Same as `branch` |
 | rechunk_suffix | A suffix appended to the resulting image tag, does not affect the image contents or build process. Useful for images that will be rechunked afterwards |  |
 | device | Device name (see `devices/`) | qualcomm-sdm845 |
@@ -120,13 +120,13 @@ Fastest method, because you don't need to wait for artifact uploads and download
 Build a disk image with the `disk` recipe, e.g.:
 
 ```shell
-sudo just device=qualcomm-sdm845 desktop=phosh tag=44 disk
+sudo just device=qualcomm-sdm845 desktop=phosh tag=45 disk
 ```
 
 Postprocess the image:
 
 ```shell
-sudo just device=qualcomm-sdm845 desktop=phosh tag=44 postprocess
+sudo just device=qualcomm-sdm845 desktop=phosh tag=45 postprocess
 ```
 
 Done.
@@ -148,6 +148,7 @@ Device subdirectory structure:
 - `build` (required) - the main build script which performs all necessary modifications to the image (e.g. install the kernel and firmware, copy over the files, etc)
 - `files/` - contains the files that should be directly copied into the image
     - `usr/lib/image-builder/bootc/disk.yaml` (required) - partiton layout
+    - `usr/lib/image-builder/bootc/extras.yaml` - list of partitons to be extracted from the resulting disk image
 - `build-aux/` (required) - auxiliary data and scripts for building disk images
     - `artifacts.sh` (required) - script that processes and collects all artifacts
     - `device.conf` (required) - various device configuration options
@@ -159,19 +160,26 @@ Device subdirectory structure:
 Available options:
 
 - `install_dtb` - boolean, whether to install device trees to ESP
-- `split_partitions` - boolean, whether to split `disk.raw` image into separate `fedora_rootfs.raw` and `fedora_esp.raw` partition images
+- `extras` - boolean, whether to split `disk.raw` image into separate partition images, defaults to `true`
 - `build_erofs` - boolean, whether to build erofs images from containers' filesystem contents
 - `device_base` - base device of the variant (only for image variants)
 - `device_variant` - device variant name (only for image variants)
 
 #### disk.yaml
 
-This file contains the desired partition layout for the device. If `split_partitions` is set to
-`true` in `device.conf`, then exactly 2 partitions should be defined: ESP and root.
-`/boot` should be placed on a separate subvolume of the root partition.
+This file contains the desired partition layout for the device.
 
 `image-builder` looks for this file at `/usr/lib/image-builder/bootc/disk.yaml` *inside of the container*,
 so if you change `disk.yaml` you must rebuild the image.
+
+#### extras.yaml
+
+This file contains a list of partitions to be extracted out of the full `disk.raw` file.
+Partitions will only be extracted if the `extras` option in `device.conf` is set to `true` (default value).
+If this option is used, the full `disk.raw` file will be removed.
+
+This feature requires exactly 2 partitions to be defined in `disk.yaml`: ESP and root.
+`/boot` should be placed on a separate subvolume of the root partition.
 
 #### extra-sources
 
@@ -214,7 +222,7 @@ device_variant=<variant name, e.g. rodriguezst>
 ```
 
 When built on GHA, the variant images are pushed into their base device's image repo
-with the variant name added to the tag (e.g. `:44-rodriguezst`)
+with the variant name added to the tag (e.g. `:45-rodriguezst`)
 
 ### Common build files
 
@@ -241,7 +249,7 @@ To add support for a new device, you should create its subdirectory in `devices/
 and populate it according to the "Working with the codebase" section.
 
 Generally, the device may need a kernel, which you should package and publish to [Fedora COPR](https://copr.fedorainfracloud.org/).
-We prefer kernels to be packaged with ARKify (see the [pocketblue/linux](https://github.com/pocketblue/linux) repo),
+We prefer kernels to be packaged with ARKify (see the [kernel building page](tips-and-tricks/kernel-build.md)),
 but it may be pretty difficult to do at first, so the kernel can initially be packaged with a simple `.spec` file
 (see some kernels in [pocketblue/packages](https://github.com/pocketblue/packages)).
 

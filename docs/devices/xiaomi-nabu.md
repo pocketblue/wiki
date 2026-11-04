@@ -18,9 +18,9 @@ and extract the archive, then proceed to installation.
 Some nabu variants can't boot the main Pocketblue images.
 Usually this happens due to UFS-related problems.
 
-Try the main image first, (`pocketblue-xiaomi-nabu-*-44`).
+Try the main image first, (`pocketblue-xiaomi-nabu-*-45`).
 If it doesn't boot or you experience UFS-related issues, try
-one of the `pocketblue-xiaomi-nabu-*-44-rodriguezst` images,
+one of the `pocketblue-xiaomi-nabu-*-45-rodriguezst` images,
 which ship an outdated patched kernel.
 
 ### Automatic installation
@@ -42,8 +42,8 @@ It will take the device several minutes to reboot into the system.
 All archives contain the following images:
 
 - `vbmeta-disabled.img` - vbmeta partition image disabling verified boot, generated using avbtool
-- `fedora_esp.raw` - EFI System Partition, contains EFI executables
-- `fedora_rootfs.raw` - root partition
+- `fedora_esp.img` - EFI System Partition, contains EFI executables
+- `fedora_rootfs.img` - root partition
 
 The main images also ship:
 
@@ -59,8 +59,8 @@ The images can be flashed into existing partitions:
 
 - `vbmeta` - `images/vbmeta-disabled.img`
 - `boot` - U-Boot (`images/uboot.img`) / Aloha (`images/aloha.img`)
-- `rawdump` (or `cust`) - ESP (`images/fedora_esp.raw`)
-- `userdata` - root partition (`images/fedora_rootfs.raw`)
+- `rawdump` (or `cust`) - ESP (`images/fedora_esp.img`)
+- `userdata` - root partition (`images/fedora_rootfs.img`)
 
 !!! info "`rawdump` and `cust` partitions"
 
@@ -94,8 +94,8 @@ fastboot flash boot_ab images/aloha.img
 
 Flash Fedora partitions:
 ```shell
-fastboot flash <ESP partition>   images/fedora_esp.raw
-fastboot flash <root partition>  images/fedora_rootfs.raw
+fastboot flash <ESP partition>   images/fedora_esp.img
+fastboot flash <root partition>  images/fedora_rootfs.img
 ```
 
 Reboot, this may take a while.
@@ -125,11 +125,11 @@ sudo rpm-ostree rebase ostree-image-signed:docker://<IMAGE>
 
 Available images:
 
-- Gnome desktop - `quay.io/pocketblue/xiaomi-nabu-gnome-desktop:44`
-- Gnome mobile - `quay.io/pocketblue/xiaomi-nabu-gnome-mobile:44`
-- Plasma desktop - `quay.io/pocketblue/xiaomi-nabu-plasma-desktop:44`
-- Plasma mobile - `quay.io/pocketblue/xiaomi-nabu-plasma-mobile:44`
-- Phosh - `quay.io/pocketblue/xiaomi-nabu-phosh:44`
+- Gnome desktop - `quay.io/pocketblue/xiaomi-nabu-gnome-desktop:45`
+- Gnome mobile - `quay.io/pocketblue/xiaomi-nabu-gnome-mobile:45`
+- Plasma desktop - `quay.io/pocketblue/xiaomi-nabu-plasma-desktop:45`
+- Plasma mobile - `quay.io/pocketblue/xiaomi-nabu-plasma-mobile:45`
+- Phosh - `quay.io/pocketblue/xiaomi-nabu-phosh:45`
 
 ## Known issues
 
