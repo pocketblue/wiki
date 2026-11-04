@@ -148,6 +148,7 @@ Device subdirectory structure:
 - `build` (required) - the main build script which performs all necessary modifications to the image (e.g. install the kernel and firmware, copy over the files, etc)
 - `files/` - contains the files that should be directly copied into the image
     - `usr/lib/image-builder/bootc/disk.yaml` (required) - partiton layout
+    - `usr/lib/image-builder/bootc/extras.yaml` - list of partitons to be extracted from the resulting disk image
 - `build-aux/` (required) - auxiliary data and scripts for building disk images
     - `artifacts.sh` (required) - script that processes and collects all artifacts
     - `device.conf` (required) - various device configuration options
@@ -159,19 +160,26 @@ Device subdirectory structure:
 Available options:
 
 - `install_dtb` - boolean, whether to install device trees to ESP
-- `split_partitions` - boolean, whether to split `disk.raw` image into separate `fedora_rootfs.raw` and `fedora_esp.raw` partition images
+- `extras` - boolean, whether to split `disk.raw` image into separate partition images, defaults to `true`
 - `build_erofs` - boolean, whether to build erofs images from containers' filesystem contents
 - `device_base` - base device of the variant (only for image variants)
 - `device_variant` - device variant name (only for image variants)
 
 #### disk.yaml
 
-This file contains the desired partition layout for the device. If `split_partitions` is set to
-`true` in `device.conf`, then exactly 2 partitions should be defined: ESP and root.
-`/boot` should be placed on a separate subvolume of the root partition.
+This file contains the desired partition layout for the device.
 
 `image-builder` looks for this file at `/usr/lib/image-builder/bootc/disk.yaml` *inside of the container*,
 so if you change `disk.yaml` you must rebuild the image.
+
+#### extras.yaml
+
+This file contains a list of partitions to be extracted out of the full `disk.raw` file.
+Partitions will only be extracted if the `extras` option in `device.conf` is set to `true` (default value).
+If this option is used, the full `disk.raw` file will be removed.
+
+This feature requires exactly 2 partitions to be defined in `disk.yaml`: ESP and root.
+`/boot` should be placed on a separate subvolume of the root partition.
 
 #### extra-sources
 
