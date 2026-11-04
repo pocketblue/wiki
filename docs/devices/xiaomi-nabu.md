@@ -42,8 +42,8 @@ It will take the device several minutes to reboot into the system.
 All archives contain the following images:
 
 - `vbmeta-disabled.img` - vbmeta partition image disabling verified boot, generated using avbtool
-- `fedora_esp.raw` - EFI System Partition, contains EFI executables
-- `fedora_rootfs.raw` - root partition
+- `fedora_esp.img` - EFI System Partition, contains EFI executables
+- `fedora_rootfs.img` - root partition
 
 The main images also ship:
 
@@ -59,8 +59,8 @@ The images can be flashed into existing partitions:
 
 - `vbmeta` - `images/vbmeta-disabled.img`
 - `boot` - U-Boot (`images/uboot.img`) / Aloha (`images/aloha.img`)
-- `rawdump` (or `cust`) - ESP (`images/fedora_esp.raw`)
-- `userdata` - root partition (`images/fedora_rootfs.raw`)
+- `rawdump` (or `cust`) - ESP (`images/fedora_esp.img`)
+- `userdata` - root partition (`images/fedora_rootfs.img`)
 
 !!! info "`rawdump` and `cust` partitions"
 
@@ -94,8 +94,8 @@ fastboot flash boot_ab images/aloha.img
 
 Flash Fedora partitions:
 ```shell
-fastboot flash <ESP partition>   images/fedora_esp.raw
-fastboot flash <root partition>  images/fedora_rootfs.raw
+fastboot flash <ESP partition>   images/fedora_esp.img
+fastboot flash <root partition>  images/fedora_rootfs.img
 ```
 
 Reboot, this may take a while.

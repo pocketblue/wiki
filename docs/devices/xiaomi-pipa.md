@@ -32,15 +32,15 @@ The archive contains the following images:
 
 - `silicium.img` - Mu Silicium UEFI implementation ([source](https://github.com/onesaladleaf/Mu-Silicium), GPLv3)
 - `vbmeta-disabled.img` - vbmeta partition image disabling verified boot, generated using avbtool
-- `fedora_esp.raw` - EFI System Partition, contains EFI executables
-- `fedora_rootfs.raw` - root partition
+- `fedora_esp.img` - EFI System Partition, contains EFI executables
+- `fedora_rootfs.img` - root partition
 
 #### Recommended partition layout
 
 - `vbmeta` - `images/vbmeta-disabled.img`
 - `boot` - Silicium (`images/silicium.img`)
-- `rawdump` (or `cust`) - ESP (`images/fedora_esp.raw`)
-- `userdata` - root partition (`images/fedora_rootfs.raw`)
+- `rawdump` (or `cust`) - ESP (`images/fedora_esp.img`)
+- `userdata` - root partition (`images/fedora_rootfs.img`)
 
 !!! info "`rawdump` and `cust` partitions"
 
@@ -70,8 +70,8 @@ fastboot flash boot_ab images/silicium.img
 
 Flash Fedora partitions:
 ```shell
-fastboot flash rawdump images/fedora_esp.raw
-fastboot flash userdata images/fedora_rootfs.raw
+fastboot flash rawdump images/fedora_esp.img
+fastboot flash userdata images/fedora_rootfs.img
 ```
 
 Reboot, this may take a while.

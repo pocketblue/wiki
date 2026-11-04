@@ -44,8 +44,8 @@ After installation, your device will reboot and boot into Pocketblue automatical
 The archive contains the following images:
 
 - `u-boot-*.img` - U-Boot, a bootloader implementing the UEFI API
-- `fedora_esp.raw` - EFI System Partition, contains EFI executables and device trees
-- `fedora_rootfs.raw` - root partition
+- `fedora_esp.img` - EFI System Partition, contains EFI executables and device trees
+- `fedora_rootfs.img` - root partition
 
 #### Recommended partition layout
 
@@ -79,8 +79,8 @@ fastboot flash boot images/u-boot-<DEVICE>.img
 
 Flash Fedora partitions:
 ```shell
-fastboot flash <ESP partition>   images/fedora_esp.raw
-fastboot flash <root partition>  images/fedora_rootfs.raw
+fastboot flash <ESP partition>   images/fedora_esp.img
+fastboot flash <root partition>  images/fedora_rootfs.img
 ```
 
 Reboot, this may take a while. **DO NOT** reboot via the power button: this can result in not all data being properly written to storage:
