@@ -106,7 +106,7 @@ export ver=$(basename kernel-core-*.aarch64.rpm .rpm | sed 's/^kernel-core-//')
 ls ./kernel{,-core,-modules-core,-modules,-modules-extra}-$ver.rpm
 ```
 
-Connect you pocketblue device via usb and copy files to it
+Connect your pocketblue device via usb and copy files to it
 
 ```bash
 rsync -av --mkpath ./kernel{,-core,-modules,-modules-core,-modules-extra}-$ver.rpm user@172.16.42.1:/tmp/rpms/
