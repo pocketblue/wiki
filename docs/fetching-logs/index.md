@@ -12,5 +12,5 @@ This guide expects you to have two devices
 From easiest to hardest
 
 1. [via ssh](ssh.md)
-2. [usb-mass-storage](usb-mass-storage.md)
-3. [serial-console](serial-console.md)
+2. [via usb-mass-storage](usb-mass-storage.md)
+3. [via serial-console](serial-console.md)
