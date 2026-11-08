@@ -4,17 +4,17 @@ This is the next simplest way after ssh,
 useful when your device can't start ssh daemon and usb networking,
 but successfully mounts storage and writes logs to it
 
-## Get into uboot bootmenu
+## Get into U-Boot bootmenu
 
 Reboot your phone and hold the volume down button
-just before u-boot appears on the screen to open the boot menu.
+just before U-Boot appears on the screen to open the boot menu.
 Getting the timing right can be tricky,
 because pressing the button too early sends xiaomi devices into fastboot mode,
-while pressing it too late makes uboot skip the boot menu and boot pocketblue
+while pressing it too late makes U-Boot skip the boot menu and boot pocketblue
 
 ## Fetch logs
 
-In the uboot boot menu, choose `3. Enable USB mass storage`
+In the U-Boot boot menu, choose `3. Enable USB mass storage`
 
 Phone's storage should appear as a block device on your computer
 

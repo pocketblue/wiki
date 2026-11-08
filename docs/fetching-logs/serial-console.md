@@ -62,17 +62,17 @@ sudo dnf install picocom
 
 This package can be installed in rootful [toolbox](https://docs.stg.fedoraproject.org/en-US/atomic-desktops/toolbox) container
 
-## Get into uboot bootmenu
+## Get into U-Boot bootmenu
 
 Reboot your phone and hold the volume down button
-just before u-boot appears on the screen to open the boot menu.
+just before U-Boot appears on the screen to open the boot menu.
 Getting the timing right can be tricky,
 because pressing the button too early sends xiaomi devices into fastboot mode,
-while pressing it too late makes uboot skip the boot menu and boot pocketblue
+while pressing it too late makes U-Boot skip the boot menu and boot pocketblue
 
-## Enabling uboot serial console
+## Enabling U-Boot serial console
 
-In the uboot boot menu, choose `2. Enable serial console gadget`
+In the U-Boot boot menu, choose `2. Enable serial console gadget`
 
 ## Connecting to serial console via picocom
 
@@ -96,9 +96,9 @@ If your device boots, use this command
 rpm-ostree kargs --editor
  ```
 
-If your device does not boot, use uboot's serial console to control grub from your computer's keyboard. Boot into grub, select first boot entry, and press `e`. Find the line beginning with `linux` and append kernel arguments to the end of the line
+If your device does not boot, use U-Boot's serial console to control grub from your computer's keyboard. Boot into grub, select first boot entry, and press `e`. Find the line beginning with `linux` and append kernel arguments to the end of the line
 
-Then press `ctrl+x` to boot. When linux starts booting, uboot's usb serial connection will drop, and you'll need to reconnect to linux's serial connection
+Then press `ctrl+x` to boot. When linux starts booting, U-Boot's usb serial connection will drop, and you'll need to reconnect to linux's serial connection
 
 ## Enable serial console after initramfs handoff
 
