@@ -139,7 +139,7 @@ rpm-ostree initramfs-etc --track=/etc/systemd/system/debug-shell.service.d/90-de
 If device does not boot, you need this dracut config
 
 ```txt
-install_items+=" /etc/systemd/system/debug-shell.service.d/90-debug-shell.conf "
+install_items+=" /etc/systemd/system/debug-shell.service.d/90-debug-shell-service.conf "
 ```
 
 Put it in pocketblue repo at
