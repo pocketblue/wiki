@@ -13,16 +13,6 @@ and extract the archive, then proceed to installation.
 !!! warning
     Your current OS, all your files and your custom partitions will be deleted
 
-### Variants
-
-Some nabu variants can't boot the main Pocketblue images.
-Usually this happens due to UFS-related problems.
-
-Try the main image first, (`pocketblue-xiaomi-nabu-*-45`).
-If it doesn't boot or you experience UFS-related issues, try
-one of the `pocketblue-xiaomi-nabu-*-45-rodriguezst` images,
-which ship an outdated patched kernel.
-
 ### Automatic installation
 
 Boot into fastboot, connect your device to your computer via usb, and run the installation script:
@@ -39,26 +29,19 @@ It will take the device several minutes to reboot into the system.
 
 #### List of provided images and files
 
-All archives contain the following images:
+The archive contains the following images:
 
+- `uboot.img` - U-Boot, a bootloader implementing the UEFI API ([source](https://github.com/gmankab/u-boot), GPLv2)
 - `vbmeta-disabled.img` - vbmeta partition image disabling verified boot, generated using avbtool
 - `fedora_esp.img` - EFI System Partition, contains EFI executables
 - `fedora_rootfs.img` - root partition
-
-The main images also ship:
-
-- `uboot.img` - U-Boot, a bootloader implementing the UEFI API ([source](https://gitlab.com/sm8150-mainline/u-boot), GPLv2)
-
-Rodriguezst images also ship:
-
-- `aloha.img` - Aloha, UEFI implementation ([source](https://github.com/Project-Aloha/mu_aloha_platforms), BSD-2-Clause)
 
 #### Recommended partition layout
 
 The images can be flashed into existing partitions:
 
 - `vbmeta` - `images/vbmeta-disabled.img`
-- `boot` - U-Boot (`images/uboot.img`) / Aloha (`images/aloha.img`)
+- `boot` - U-Boot (`images/uboot.img`)
 - `rawdump` (or `cust`) - ESP (`images/fedora_esp.img`)
 - `userdata` - root partition (`images/fedora_rootfs.img`)
 
@@ -86,10 +69,6 @@ fastboot flash vbmeta_ab images/vbmeta-disabled.img
 Flash UEFI:
 ```shell
 fastboot flash boot_ab images/uboot.img
-
-# or
-
-fastboot flash boot_ab images/aloha.img
 ```
 
 Flash Fedora partitions:
@@ -136,10 +115,6 @@ Available images:
 ### Cracking sound
 
 Sometimes sound may start cracking. It can be fixed by rebooting the device, or by using headphones.
-
-### Pen charging on rodriguezst images
-
-Rodriguezst images currently don't ship a driver for pen charging.
 
 ## Dual-boot with Android
 
